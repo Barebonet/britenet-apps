@@ -1,0 +1,19 @@
+<!--
+ - Created by bartosz.rozpara on 25.11.2022.
+ -->
+
+<!-- View Modal -->
+<template>
+    <section role="dialog" tabindex="-1" aria-modal="true"
+             class="slds-modal slds-fade-in-open">
+        <div class="myHugeSize">
+            <div if:true={showMovie} class="modal">
+                <c-movie-modal movie={movie} onrefresh={handleRefresh}></c-movie-modal>
+            </div>
+            <div if:true={showActor} class="modal">
+                <c-actor-modal actor={actor}></c-actor-modal>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

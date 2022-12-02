@@ -1,0 +1,15 @@
+<!-- Popular Movies -->
+<template>
+    <div class="c-container">
+        <lightning-card>
+            <h1 slot="title">Popular Films</h1>
+            <div class=slds-scrollable>
+                <div class="slds-grid results">
+                    <div class="slds-col slds-size_1-of-5 item" for:each={movieList} for:item="movie" key={movie.id}>
+                        <c-movie-tile movie={movie} onrefresh={refreshList}></c-movie-tile>
+                    </div>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>

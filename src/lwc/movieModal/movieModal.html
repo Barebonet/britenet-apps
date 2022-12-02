@@ -1,0 +1,63 @@
+<!-- Movie Modal -->
+<template>
+    <div class="myHugeSize">
+        <lightning-modal-header label={movie.title}></lightning-modal-header>
+        <lightning-modal-body class="slds-scrollable">
+            <div style="height:720px">
+                <div style="display: flex">
+                    <div class="imageDiv">
+                        <img src={movie.poster_path} alt="Poster Movie"/>
+                    </div>
+                    <div class="slds-scrollable text" style="margin-left: 15px">
+                        <div class="rating" style="display: flex">
+                            <div style="width: 92%">
+                                <div><b>Rating:</b></div>
+                                <c-star-ratings rating={rating} read-only-star="true" show-half-stars="true"
+                                                size="small"></c-star-ratings>
+                            </div>
+                            <div style="width: 8%">
+                                <lightning-icon title="Delete from favorites" if:true={isFavourite} icon-name="custom:custom11"
+                                                onclick={handleDeleteFromFav} class="icon-notFav pointer"></lightning-icon>
+                                <lightning-icon title="Add to favorites" if:false={isFavourite} icon-name="utility:favorite"
+                                                onclick={handleAddToFav} class="icon-fav pointer"></lightning-icon>
+                                <lightning-icon title="Delete from blacklist" if:true={isBlacklisted} icon-name="custom:custom87"
+                                                onclick={handleDeleteFromBlacklist} class="pointer"></lightning-icon>
+                                <lightning-icon title="Add to blacklist" if:false={isBlacklisted} icon-name="utility:ban"
+                                                onclick={handleAddToBlacklist} class="pointer"></lightning-icon>
+                            </div>
+                        </div>
+                        <div>
+                            <div><b>Original title:</b><br>{movie.original_title}</div>
+                        </div>
+                        <br>
+                        <div style="display: flex">
+                            <div><b>Release date:</b><br>{movie.release_date}</div>
+                        </div>
+                        <br>
+                        <div><b>Overview:</b><br>{movie.overview}</div>
+                    </div>
+                </div>
+                <div>
+                    <c-movie-cast movie={movie}></c-movie-cast>
+                </div>
+                <div>
+                    <c-add-comment product-id={movie.id} oncommentadded={handleAddComment}></c-add-comment>
+                </div>
+                <div>
+                    <div for:each={commentList} for:item=comment key={comment.Id}>
+                        <div key={comment.Id} if:true={showComments}>
+                            <c-comments-tile comment={comment} ondeletedopinion={handleDeleteCommand}></c-comments-tile>
+                        </div>
+                        <template if:false={showComments}>
+                            <p class="noComments">This film has no opinions yet.</p>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button class="slds-align_absolute-center" label="Close"
+                              onclick={handleOpenedModals}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

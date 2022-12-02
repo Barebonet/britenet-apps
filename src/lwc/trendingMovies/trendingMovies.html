@@ -1,0 +1,13 @@
+<!-- Trending Movies -->
+<template>
+    <div class="c-container">
+        <lightning-card>
+            <h1 slot="title">Trending movies</h1>
+            <div class=slds-scrollable style="display: flex; flex-wrap: nowrap">
+                <div class="slds-col slds-size_1-of-5 item" for:each={movieList} for:item="movie" key={movie.id}>
+                    <c-movie-tile movie={movie} onrefresh={handleRefresh}></c-movie-tile>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>

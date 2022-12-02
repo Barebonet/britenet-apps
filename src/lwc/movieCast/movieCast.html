@@ -1,0 +1,17 @@
+<!--
+ - Created by bartosz.rozpara on 25.11.2022.
+ -->
+
+<!-- Movie Cast -->
+<template>
+    <lightning-card>
+        <h1 slot="title">Movie cast</h1>
+        <div class=slds-scrollable>
+            <div class="slds-grid results">
+                <div class="slds-col slds-size_1-of-4 item" for:each={castList} for:item="castActor" key={castActor.id}>
+                    <c-movie-cast-tile actor-cast={castActor}></c-movie-cast-tile>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

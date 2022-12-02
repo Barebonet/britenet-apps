@@ -1,0 +1,13 @@
+<!-- Favorites Movies -->
+<template>
+    <div>
+        <lightning-card>
+            <h1 class="slds-text-heading_large slds-text-align_center" slot="title">Favorite Movies</h1>
+            <div class="slds-grid results">
+                <div class="slds-col slds-size_1-of-5 item" for:each={favouriteMovies} for:item="movie" key={movie.id}>
+                    <c-movie-tile movie={movie} onrefresh={handleRefresh}></c-movie-tile>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>

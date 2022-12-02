@@ -1,0 +1,26 @@
+/**
+ * Created by bartosz.rozpara on 25.11.2022.
+ */
+
+.myHugeSize {
+    width: 1700px;
+    height: 840px;
+    max-height: 840px;
+    min-height: 840px;
+    margin-top: 30px;
+    margin-left: 100px;
+}
+
+.margins {
+    margin-top: 300px;
+    margin-left: 300px;
+}
+
+.modal {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}

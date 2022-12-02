@@ -1,0 +1,149 @@
+<!-- Search Movies -->
+<template>
+    <lightning-card>
+        <div class="slds-m-around_medium">
+            <div class="slds-m-bottom_small">
+                <lightning-input type="text"
+                                 value={name}
+                                 label="Name"
+                                 onchange={searchMovie}
+                                 class="slds-size_2-of-3 slds-align_absolute-center"
+                                 required="true"
+                ></lightning-input>
+            </div>
+
+            <lightning-button label="Search"
+                              onclick={search}
+                              variant="brand" class=slds-align_absolute-center></lightning-button>
+        </div>
+        <div class="checkboxes slds-align_absolute-center">
+            <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="checkbox" checked="true"
+                             label="Display Movies" onchange={toggleMovies}></lightning-input>
+            <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="checkbox" checked="true"
+                             label="Display Actors" onchange={toggleActors}></lightning-input>
+        </div>
+    </lightning-card>
+
+    <div class=container if:true={displayMovies}>
+        <lightning-card>
+            <div class="button slds-float_right">
+                <lightning-button label="New Movie" variant="brand" onclick={openModalNewMovie}></lightning-button>
+            </div>
+            <div>
+                <h1 class="slds-text-heading_large slds-text-align_center" slot="title"><b>Movies</b></h1>
+                <div class="slds-grid results">
+                    <div class="slds-col slds-size_1-of-5 item" for:each={movieList} for:item="movie" key={movie.id}>
+                        <div key={movie.id}>
+                            <c-movie-tile movie={movie} onrefresh={handleRefresh}></c-movie-tile>
+                        </div>
+                    </div>
+                </div>
+                <div class=slds-align_absolute-center if:true={displayPaginateMovies}>
+                    <lightning-button label="First"
+                                      variant="brand" onclick={firstMovies}
+                                      class="slds-p-right_medium"></lightning-button>
+                    <lightning-button label="Previous"
+                                      variant="brand" onclick={previousMovies}
+                                      class="slds-p-right_medium"></lightning-button>
+                    <div style="padding-right: 10px"><b>{pageMoviesNum} of {totalMoviePages}</b></div>
+                    <lightning-button label="Next"
+                                      variant="brand" onclick={nextMovies}
+                                      class="slds-p-right_medium"></lightning-button>
+                    <lightning-button label="Last"
+                                      variant="brand" onclick={lastMovies}></lightning-button>
+                </div>
+                <div if:false={displayPaginateMovies}>
+                    <center>No movies were found.</center>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+
+    <div class=container if:true={displayActors}>
+        <lightning-card>
+<!--            <div class="button slds-float_right">-->
+<!--                <lightning-button label="New Actor" variant="brand"></lightning-button>-->
+<!--            </div>-->
+            <div>
+                <h1 class="slds-text-heading_large slds-text-align_center" slot="title"><b>Actors</b></h1>
+                <div class="slds-grid results">
+                    <div class="slds-col slds-size_1-of-5 item" for:each={actorList} for:item="actor" key={actor.id}>
+                        <c-actor-tile actor={actor}></c-actor-tile>
+                    </div>
+                </div>
+                <div class=slds-align_absolute-center if:true={displayPaginateActors}>
+                    <lightning-button label="First"
+                                      variant="brand" onclick={firstActors}
+                                      class="slds-p-right_medium"></lightning-button>
+                    <lightning-button label="Previous"
+                                      variant="brand" onclick={previousActors}
+                                      class="slds-p-right_medium"></lightning-button>
+                    <lightning-button label="Next"
+                                      variant="brand" onclick={nextActors}
+                                      class="slds-p-right_medium"></lightning-button>
+                    <lightning-button label="Last"
+                                      variant="brand" onclick={lastActors}></lightning-button>
+                </div>
+                <div if:false={displayPaginateActors}>
+                    <center>No actors were found.</center>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+    <div if:true={newMovieModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true"
+                 class="slds-modal slds-fade-in-open">
+            <div class="myHugeSize">
+                <lightning-modal-header label="New Movie"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div style="height:370px">
+                        <div style="display: flex; flex-wrap: wrap">
+                            <lightning-input type="text"
+                                             required="true"
+                                             value={movieName}
+                                             label="Movie Title"
+                                             class="slds-size_2-of-3 slds-align_absolute-center singleInput"
+                            ></lightning-input>
+                            <lightning-input type="text"
+                                             value={originalTitle}
+                                             label="Original Title"
+                                             class="slds-size_2-of-3 slds-align_absolute-center singleInput"
+                            ></lightning-input>
+                            <lightning-input type="text"
+                                             value={originalLanguage}
+                                             label="Original Language"
+                                             class="slds-size_2-of-3 slds-align_absolute-center singleInput"
+                            ></lightning-input>
+                            <lightning-input type="text"
+                                             required="true"
+                                             value={overview}
+                                             label="Movie Overview"
+                                             class="slds-size_2-of-3 slds-align_absolute-center singleInput"
+                            ></lightning-input>
+                            <lightning-input type="text"
+                                             value={releaseDate}
+                                             label="Date of release"
+                                             class="slds-size_2-of-3 slds-align_absolute-center singleInput"
+                            ></lightning-input>
+                            <lightning-input type="text"
+                                             required="true"
+                                             value={posterPath}
+                                             label="URL link to movie cover"
+                                             class="slds-size_2-of-3 slds-align_absolute-center"
+                            ></lightning-input>
+                        </div>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div class="flex">
+                        <lightning-button class="slds-align_absolute-center" label="Add"
+                        onclick={addMovie}></lightning-button>
+                        <lightning-button class="slds-align_absolute-center" label="Close"
+                                          onclick={closeNewMovieModal}></lightning-button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </div>
+</template>

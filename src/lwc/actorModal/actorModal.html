@@ -1,0 +1,33 @@
+<!--
+ - Created by bartosz.rozpara on 25.11.2022.
+ -->
+
+<!-- Actor Modal -->
+<template>
+    <div class="myHugeSize">
+        <lightning-modal-header label={actor.name}></lightning-modal-header>
+        <lightning-modal-body>
+            <div style="height:720px">
+                <div style="display: flex">
+                    <div class="imageDiv">
+                        <img src={actor.profile_path} alt="Poster Movie"/>
+                    </div>
+                    <div class="slds-scrollable slds-scrollable_y text" style="margin-left: 15px">
+                        <div style="display: flex">
+                            <div><b>Day of birth:</b><br>{birthday}</div>
+                        </div>
+                        <br>
+                        <div><b>Biography:</b><br>{biography}</div>
+                    </div>
+                </div>
+                <div>
+                    <c-actor-movies-list actor={actor}></c-actor-movies-list>
+                </div>
+            </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+            <lightning-button label="Close" class="slds-align_absolute-center"
+                              onclick={closeAllOpenedModals}></lightning-button>
+        </lightning-modal-footer>
+    </div>
+</template>

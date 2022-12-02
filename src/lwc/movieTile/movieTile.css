@@ -1,0 +1,29 @@
+.item {
+    position: relative;
+    padding: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.item:hover + .hidden {
+    display: block;
+    z-index: 500;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+.hidden {
+    position: relative;
+    margin-top: -106px;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 30px;
+    padding-bottom: 7px;
+    color: white;
+    display: none;
+    z-index: 30000000000000000000000000000000;
+}
+
+.checked {
+    color: darkseagreen;
+}

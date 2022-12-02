@@ -1,0 +1,36 @@
+.myHugeSize {
+    width: 800px;
+    height: 385px;
+    max-height: 385px;
+    margin-left: 550px;
+    margin-top: 150px;
+}
+
+.singleInput {
+    padding-bottom: 5px;
+}
+
+.item {
+    padding: 20px;
+}
+
+.button {
+    margin-right: 7px;
+}
+
+.results {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.movieDetails {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}

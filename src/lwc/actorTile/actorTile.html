@@ -1,0 +1,19 @@
+<!--
+ - Created by bartosz.rozpara on 24.11.2022.
+ -->
+
+<!-- Actor Tile -->
+<template>
+    <div>
+        <div onclick={toggleActorDetails}>
+            <img key={actor.id} src={actor.profile_path} alt="Actor Picture" class="item" style="height: 450px; max-height: 450px; width: 100%; object-fit: cover"/>
+            <div class="hidden">
+                <div class="slds-text-heading_medium slds-text-align_center" key={actor.id}>{actor.name}</div>
+            </div>
+        </div>
+    </div>
+
+    <template if:true={actorDetailsVisible}>
+        <c-view-modal actor={actor} show-actor></c-view-modal>
+    </template>
+</template>

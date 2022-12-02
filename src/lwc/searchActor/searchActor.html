@@ -1,0 +1,32 @@
+<!--
+ - Created by bartosz.rozpara on 23.11.2022.
+ -->
+
+<!-- Search Actor -->
+<template>
+    <lightning-card>
+        <div class="slds-m-around_medium">
+            <div class="slds-m-bottom_small">
+                <lightning-input type="text"
+                                 value={actorName}
+                                 label="Actor Name"
+                                 onchange={searchActor}
+                ></lightning-input>
+            </div>
+
+            <lightning-button label="Search"
+                              onclick={search}
+                              variant="brand"></lightning-button>
+        </div>
+    </lightning-card>
+
+    <lightning-card class=container>
+        <lightning-layout horizontal-align="spread" multiple-rows>
+            <h1 slot="title">Results</h1>
+            <lightning-layout-item size="2" for:each={actorList} for:item="actor" key={actor.id} class=item>
+                <img key={actor.id} src={actor.profile_path} alt="Poster Movie"/>
+                <p key={actor.id}>{actor.name}</p>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

@@ -1,0 +1,17 @@
+<!--
+ - Created by bartosz.rozpara on 25.11.2022.
+ -->
+
+<!-- Actor Movies List -->
+<template>
+    <lightning-card>
+        <h1 slot="title">Films</h1>
+        <div class=slds-scrollable>
+            <div class="slds-grid results">
+                <div class="slds-col slds-size_1-of-4 item" for:each={moviesList} for:item="movie" key={movie.id}>
+                    <c-movie-tile movie={movie}></c-movie-tile>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

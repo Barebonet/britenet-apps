@@ -1,0 +1,28 @@
+<!-- Comments Tile -->
+<template>
+    <div style="margin-top: 2rem">
+        <div class="commentWrapper" key={comment.Id}>
+            <div style="display: flex; width: 100%; margin-bottom: 20px">
+                <div style="display: flex; flex-wrap: wrap; width: 95%">
+                    <div style="padding-left: 30px; width: 10%">
+                        <p key={comment.Id} style="color: gray; padding-top: 15px; font-size: 16px">
+                            {comment.author}
+                        </p>
+                    </div>
+                    <div key={comment.Id} style="width:40%">
+                        <c-star-ratings rating={comment.author_details.rating} read-only-star="true"
+                                        show-half-stars="true"
+                                        size="small"></c-star-ratings>
+                    </div>
+                    <div style="width: 100%">
+                        <p key={comment.Id} style="font-size: 15px; padding-left: 30px; margin-bottom: 15px"><br>
+                            {comment.content}</p>
+                    </div>
+                </div>
+                <div if:true={buttonVisible} style="width: 5%; margin-top: 50px">
+                    <lightning-button key={comment.Id} label="Delete" onclick={handleDeleteCommand}></lightning-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
