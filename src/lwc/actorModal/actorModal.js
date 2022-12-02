@@ -21,10 +21,11 @@ export default class ActorModal extends LightningElement {
         })
     }
 
-    handleOpenedModal() {
-        const payload = { booleanForActorModal: false };
-
-        publish(this.messageContext, recordSelected, payload);
+    handleCloseModal() {
+        const event = new CustomEvent("closeactormodal", {
+            detail: false
+        });
+        this.dispatchEvent(event);
     }
 
     closeAllOpenedModals() {

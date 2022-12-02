@@ -3,6 +3,7 @@
     padding: 20px;
     cursor: pointer;
     z-index: 1;
+    transition: 0.3s;
 }
 
 .item:hover + .hidden {

@@ -26,8 +26,12 @@
             </div>
         </lightning-modal-body>
         <lightning-modal-footer>
-            <lightning-button label="Close" class="slds-align_absolute-center"
-                              onclick={closeAllOpenedModals}></lightning-button>
+            <div style="display: flex">
+                <lightning-button label="Back" class="slds-align_absolute-center"
+                                  onclick={handleCloseModal}></lightning-button>
+                <lightning-button label="Close" class="slds-align_absolute-center"
+                                  onclick={closeAllOpenedModals}></lightning-button>
+            </div>
         </lightning-modal-footer>
     </div>
 </template>

@@ -16,13 +16,18 @@
                                                 size="small"></c-star-ratings>
                             </div>
                             <div style="width: 8%">
-                                <lightning-icon title="Delete from favorites" if:true={isFavourite} icon-name="custom:custom11"
-                                                onclick={handleDeleteFromFav} class="icon-notFav pointer"></lightning-icon>
-                                <lightning-icon title="Add to favorites" if:false={isFavourite} icon-name="utility:favorite"
+                                <lightning-icon title="Delete from favorites" if:true={isFavourite}
+                                                icon-name="custom:custom11"
+                                                onclick={handleDeleteFromFav}
+                                                class="icon-notFav pointer"></lightning-icon>
+                                <lightning-icon title="Add to favorites" if:false={isFavourite}
+                                                icon-name="utility:favorite"
                                                 onclick={handleAddToFav} class="icon-fav pointer"></lightning-icon>
-                                <lightning-icon title="Delete from blacklist" if:true={isBlacklisted} icon-name="custom:custom87"
+                                <lightning-icon title="Delete from blacklist" if:true={isBlacklisted}
+                                                icon-name="custom:custom87"
                                                 onclick={handleDeleteFromBlacklist} class="pointer"></lightning-icon>
-                                <lightning-icon title="Add to blacklist" if:false={isBlacklisted} icon-name="utility:ban"
+                                <lightning-icon title="Add to blacklist" if:false={isBlacklisted}
+                                                icon-name="utility:ban"
                                                 onclick={handleAddToBlacklist} class="pointer"></lightning-icon>
                             </div>
                         </div>
@@ -56,8 +61,12 @@
             </div>
         </lightning-modal-body>
         <lightning-modal-footer>
-            <lightning-button class="slds-align_absolute-center" label="Close"
-                              onclick={handleOpenedModals}></lightning-button>
+            <div style="display: flex">
+                <lightning-button class="slds-align_absolute-center" label="Back"
+                                  onclick={handleCloseModal}></lightning-button>
+                <lightning-button class="slds-align_absolute-center" label="Close"
+                                  onclick={handleOpenedModals}></lightning-button>
+            </div>
         </lightning-modal-footer>
     </div>
 </template>

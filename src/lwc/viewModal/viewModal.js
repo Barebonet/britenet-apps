@@ -24,4 +24,12 @@ export default class ViewModal extends LightningElement {
         })
         this.dispatchEvent(event);
     }
+
+    handleCloseMovieModal(event) {
+        this.showMovie = event.detail;
+    }
+
+    handleCloseActorModal(event) {
+        this.showActor = event.detail;
+    }
 }

@@ -40,6 +40,13 @@ export default class MovieModal extends LightningElement {
         })
     }
 
+    handleCloseModal() {
+        const event = new CustomEvent("closemoviemodal", {
+            detail: false
+        });
+        this.dispatchEvent(event);
+    }
+
     handleDeleteCommand() {
         this.getAvgRatings()
         this.refreshRatings()
