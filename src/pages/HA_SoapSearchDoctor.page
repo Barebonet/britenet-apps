@@ -1,0 +1,178 @@
+<!--
+ - Created by bartosz.rozpara on 25.10.2022.
+ -->
+
+<apex:page id="HA_SoapSearchDoctor" controller="HA_SoapDoctorController">
+    <apex:includeScript value="{!$Resource.jQuery}"/>
+    <apex:includeScript value="http://code.jquery.com/jquery-1.10.2.js"/>
+    <apex:includeScript value="http://code.jquery.com/ui/1.10.4/jquery-ui.js"/>
+    <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+    <style>
+        .customPopup{
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            width: 500px;
+            margin-left: -250px;
+            top:150px;
+        }
+
+        .modal {
+            padding:10px;
+            position: absolute;
+            z-index: 999;
+            width: 1000px;
+            margin-left: 170px;
+            top: 100px;
+        }
+
+        .hide-modal {
+            display:none
+        }
+
+        .datePicker {
+            z-index: 9999;
+        }
+
+        .button {
+            float: right;
+            display: flex;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: none;
+        }
+    </style>
+    <apex:form id="form">
+        <apex:pageBlock id="search" title="{!$Label.SearchDoctor}">
+            <apex:commandButton id="buttonNew" value="{!$Label.New}" onClick="showInsertModal()" reRender="dialogNew" styleClass="button"/>
+            <apex:pageMessages />
+            <apex:pageBlockSection id="inputs" columns="2">
+                <apex:inputText id="firstName" value="{!doctorNewDTO.firstName}" label="{!$Label.FirstName}" required="false"/>
+                <apex:inputText id="lastName" value="{!doctorNewDTO.lastName}" label="{!$Label.LastName}" required="false"/>
+                <apex:selectList id="country" value="{!doctorNewDTO.country}" label="{!$Label.Country}" size="1" multiselect="false" styleClass="requiredInput">
+                    <apex:selectOptions value="{!selectOptions}"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1">
+                <apex:panelGrid columns="2" style="margin: 0 auto; justify-content: center; text-align: center">
+                    <apex:commandButton value="{!$Label.Search}" action="{!searchDoctor}"/>
+                    <apex:commandButton value="{!$Label.Clear}" action="{!clearSearch}" onClick="clearSearch()" styleClass="btn" immediate="true"/>
+                </apex:panelGrid>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+        <apex:outputPanel id="popup">
+            <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!popupVisible}">
+                <apex:outputText >{!$Label.DeleteConfirm}</apex:outputText>
+                <apex:commandButton value="{!$Label.Yes}" action="{!deleteDoctor}"/>
+                <apex:commandButton value="{!$Label.No}" action="{!hidePopup}" rerender="popup"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <apex:pageBlock title="{!$Label.Doctors}" id="docs" rendered="{!NOT(doctors.empty)}">
+            <apex:pageBlockTable id="table" value="{!doctors}" var="doc">
+                <apex:column headerValue="{!$Label.FullName}">{!doc.firstName} {!doc.lastName}</apex:column>
+                <apex:column value="{!doc.email}" headerValue="{!$Label.Email}"/>
+                <apex:column value="{!doc.phoneNum}" headerValue="{!$Label.PhoneNumber}"/>
+                <apex:column value="{!doc.country}" headerValue="{!$Label.Country}"/>
+                <apex:column value="{!doc.city}" headerValue="{!$Label.City}"/>
+                <apex:column value="{!doc.streetAddress}" headerValue="{!$Label.StreetAddress}"/>
+                <apex:column value="{!doc.postCode}" headerValue="{!$Label.PostCode}"/>
+
+                <apex:column headerValue="{!$Label.ActionButtons}" style="justify-content: center">
+                    <apex:commandLink id="edit" value="{!$Label.Edit}" action="{!getSelectedDoctor}" reRender="dialogEdit" styleClass="btn link" style="margin: 5px; padding: 4px;" onComplete="showEditModal()">
+                        <apex:param name="doctorId" value="{!doc.doctorId}" assignTo="{!tempDoctorId}"/>
+                    </apex:commandLink>
+                    <apex:commandLink id="delete" value="{!$Label.Delete}" action="{!showPopup}" styleClass="btn link" style="margin: 5px; padding: 4px;">
+                        <apex:param name="doctorId" value="{!doc.doctorId}" assignTo="{!tempDoctorId}"/>
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <div id="modalNew" class="modal hide-modal">
+            <apex:outputPanel id="dialogNew">
+                <apex:pageBlock title="{!$Label.NewDoctor}">
+                    <apex:pageBlockSection id="InsertDoctor">
+                        <apex:inputText value="{!doctorToInsert.firstName}" label="{!$Label.FirstName}"/>
+                        <apex:inputText value="{!doctorToInsert.lastName}" label="{!$Label.LastName}"/>
+                        <apex:inputText value="{!doctorToInsert.email}" label="{!$Label.Email}"/>
+                        <apex:inputText value="{!doctorToInsert.phoneNum}" label="{!$Label.PhoneNumber}"/>
+                        <apex:selectList id="country" value="{!doctorToInsert.country}" label="{!$Label.Country}"
+                                         size="1" multiselect="false" styleClass="requiredInput">
+                            <apex:selectOptions value="{!selectOptions}"/>
+                        </apex:selectList>
+                        <apex:inputText value="{!doctorToInsert.city}" label="{!$Label.City}"/>
+                        <apex:inputText value="{!doctorToInsert.streetAddress}" label="{!$Label.StreetAddress}"/>
+                        <apex:inputText value="{!doctorToInsert.postCode}" label="{!$Label.PostCode}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1">
+                        <apex:panelGrid columns="2" style="margin: 0 auto; justify-content: center; text-align: center">
+                            <apex:commandButton value="{!$Label.Save}" action="{!insertDoctor}" styleClass="btn"/>
+                            <apex:commandButton id="closeNew" value="{!$Label.Cancel}" styleClass="btn"/>
+                        </apex:panelGrid>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </div>
+
+        <div id="modalEdit" class="modal hide-modal">
+            <apex:outputPanel id="dialogEdit">
+                <apex:pageBlock title="{!$Label.EditDoctor}">
+                    <apex:pageBlockSection id="EditDoctor">
+                        <apex:inputText value="{!selectedDoctor.firstName}" label="{!$Label.FirstName}"/>
+                        <apex:inputText value="{!selectedDoctor.lastName}" label="{!$Label.LastName}"/>
+                        <apex:inputText value="{!selectedDoctor.email}" label="{!$Label.Email}"/>
+                        <apex:inputText value="{!selectedDoctor.phoneNum}" label="{!$Label.PhoneNumber}"/>
+                        <apex:selectList id="country" value="{!selectedDoctor.country}" label="{!$Label.Country}"
+                                         size="1" multiselect="false" styleClass="requiredInput">
+                            <apex:selectOptions value="{!selectOptions}"/>
+                        </apex:selectList>
+                        <apex:inputText value="{!selectedDoctor.city}" label="{!$Label.City}"/>
+                        <apex:inputText value="{!selectedDoctor.streetAddress}" label="{!$Label.StreetAddress}"/>
+                        <apex:inputText value="{!selectedDoctor.postCode}" label="{!$Label.PostCode}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="1">
+                        <apex:panelGrid columns="2" style="margin: 0 auto; justify-content: center; text-align: center">
+                            <apex:commandButton value="{!$Label.Save}" action="{!updateDoctor}" styleClass="btn"/>
+                            <apex:commandButton id="closeEdit" value="{!$Label.Cancel}" styleClass="btn"/>
+                        </apex:panelGrid>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <div class="background"></div>
+        </div>
+    </apex:form>
+    <script>
+        function clearSearch() {
+            document.getElementById('{!$Component.HA_SoapSearchDoctor:form:search:inputs:firstName}').value = '';
+            document.getElementById('{!$Component.HA_SoapSearchDoctor:form:search:inputs:lastName}').value = '';
+            document.getElementById('{!$Component.HA_SoapSearchDoctor:form:search:inputs:country}').value = 'France';
+
+            return false;
+        }
+
+        function showEditModal(){
+            $('#modalEdit').modal().show();
+        }
+        function closeEditModal() {
+            $('#modalEdit').modal('hide');
+        }
+
+        function showInsertModal(){
+            $('#modalNew').modal().show();
+        }
+        function closeInsertModal() {
+            $('#modalNew').modal('hide');
+        }
+    </script>
+</apex:page>

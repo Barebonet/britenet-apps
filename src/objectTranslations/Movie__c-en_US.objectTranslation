@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Movie</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Movies</value>
+    </caseValues>
+    <fields>
+        <label><!-- Adult --></label>
+        <name>Adult__c</name>
+    </fields>
+    <fields>
+        <label><!-- Backdrop Path --></label>
+        <name>BackdropPath__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original Language --></label>
+        <name>OriginalLanguage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original Title --></label>
+        <name>OriginalTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overview --></label>
+        <name>Overview__c</name>
+    </fields>
+    <fields>
+        <label><!-- Popularity --></label>
+        <name>Popularity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Poster Path --></label>
+        <name>PosterPath__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release Date --></label>
+        <name>ReleaseDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Video --></label>
+        <name>Video__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vote Average --></label>
+        <name>VoteAverage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vote Count --></label>
+        <name>VoteCount__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

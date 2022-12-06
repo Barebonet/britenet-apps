@@ -1,19 +1,22 @@
-import { LightningElement } from 'lwc';
-import getPopularMovies from '@salesforce/apex/FA_CalloutService.getPopularMovies';
+import {LightningElement, track, wire} from 'lwc';
+import getPopularMovies from '@salesforce/apex/FA_CalloutService.getFullPopularMovies';
 
 export default class PopularMovies extends LightningElement {
-    movieList;
-    refreshValue;
+    @track movieList;
+    @track currentPage = 1;
+    @track lastPage = 4;
 
-    connectedCallback() {
-        this.getPopular()
+    constructor() {
+        super();
+        this.getPopular();
     }
 
     getPopular() {
-        getPopularMovies()
-            .then(result => {
-                this.movieList = result.results
-            })
+        getPopularMovies({
+            page: 2
+        }).then(result => {
+            this.movieList = result.results
+        })
     }
 
     refreshList() {

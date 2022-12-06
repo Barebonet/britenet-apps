@@ -1,0 +1,156 @@
+<apex:page id="SearchDoctor" controller="HA_DoctorController">
+    <style>
+        .customPopup {
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 50%;
+            padding: 10px;
+            position: absolute;
+            z-index: 9999;
+            width: 500px;
+            margin-left: -250px;
+            top: 100px;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: none;
+        }
+
+        .loader {
+            display: none;
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <apex:form >
+        <apex:pageBlock id="search" title="{!$Label.SearchDoctor}">
+            <apex:pageBlockSection >
+                <apex:inputField value="{!doctor.LastName__c}" label="{!$Label.LastName}"/>
+                <apex:inputField value="{!doctor.Email__c}" label="{!$Label.Email}" required="false"/>
+                <apex:inputField value="{!doctor.FirstName__c}" label="{!$Label.FirstName}" required="false"/>
+                <apex:inputField value="{!doctor.Country__c}" label="{!$Label.Country}" required="false"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1">
+                <apex:panelGrid columns="4" style="margin: 0 auto; justify-content: center; text-align: center">
+                    <apex:commandButton value="{!$Label.Search}" action="{!searchDoctor}"
+                                        onClick="displayLoading()" styleClass="btn"/>
+                    <apex:commandButton value="{!$Label.Clear}" action="{!clearSearch}" styleClass="btn"
+                                        immediate="true"/>
+                    <apex:commandButton value="{!$Label.ExportToCSV}" action="{!exportSearchingToCSV}"
+                                        rendered="{!NOT(doctors.empty)}"/>
+                    <apex:commandButton value="{!$Label.ExportToXLS}" action="{!exportSearchingToXSL}"
+                                        rendered="{!NOT(doctors.empty)}"/>
+                </apex:panelGrid>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+
+        <apex:outputPanel id="popup">
+            <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!popupVisible}">
+                <apex:outputText >{!$Label.DeleteConfirm}</apex:outputText>
+                <apex:commandButton value="{!$Label.Yes}" action="{!deleteDoctor}">
+                    <apex:param value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                </apex:commandButton>
+                <apex:commandButton value="{!$Label.No}" action="{!hidePopup}" rerender="popup"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <center><div id="spinner" class="loader"></div></center>
+
+        <apex:pageBlock title="{!$Label.Doctors}" id="docs" rendered="{!NOT(doctors.empty)}">
+            <apex:pageBlockTable id="table" value="{!doctors}" var="doc">
+                <apex:column headerValue="{!$Label.ActionButtons}">
+                    <apex:commandLink action="{!directToDoctorDetails}" target="_blank" value="{!doc.FullName__c}">
+                        <apex:param name="Id" value="{!doc.Id}" assignTo="{!doctorId}"/>
+                        <apex:param name="status" value="{!'view'}" assignTo="{!status}"/>
+                    </apex:commandLink>
+                    <apex:facet name="header">
+                        <apex:commandLink action="{! sortByFullName }"
+                                          reRender="docs">{!$Label.FullName} {!orderingFullName}
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+                <apex:column value="{!doc.Email__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!sortByEmail}" reRender="docs">{!$Label.Email} {!orderingEmail}
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+                <apex:column value="{!doc.Country__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{! sortByCountry }"
+                                          reRender="docs">{!$Label.Country} {!orderingCountry}
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+                <apex:column headerValue="{!$Label.ActionButtons}" style="justify-content: center">
+                    <apex:commandLink value="{!$Label.View}" target="_blank" action="{!directToDoctorDetails}"
+                                      styleClass="btn link" style="margin-left: 10px; padding: 4px;">
+                        <apex:param name="Id" value="{!doc.Id}" assignTo="{!doctorId}"/>
+                        <apex:param name="status" value="{!'view'}" assignTo="{!status}"/>
+                    </apex:commandLink>
+                    <apex:commandLink value="{!$Label.Edit}" target="_blank" action="{!directToDoctorDetails}"
+                                      styleClass="btn link" style="margin-left: 10px; padding: 4px;">
+                        <apex:param name="idDoctor" value="{!doc.Id}" assignTo="{!doctorId}"/>
+                        <apex:param name="status" value="{!'edit'}" assignTo="{!status}"/>
+                    </apex:commandLink>
+
+                    <apex:commandButton id="delete" value="{!$Label.Delete}" action="{!showPopup}" reRender="popup"
+                                        style="margin-left: 10px">
+                        <apex:param value="{!doc.Id}" assignTo="{!doctorId}"/>
+                    </apex:commandButton>
+                </apex:column>
+            </apex:pageBlockTable>
+
+            <apex:selectList value="{!numOfRecordsPerPage}" label="{!$Label.ResultsPerPage}" size="1"
+                             multiSelect="false">
+                <apex:selectOption itemValue="5" itemLabel="5"/>
+                <apex:selectOption itemValue="10" itemLabel="10"/>
+                <apex:selectOption itemValue="15" itemLabel="15"/>
+                <apex:actionSupport event="onchange" action="{!refreshPageSize}" reRender="docs"/>
+            </apex:selectList>
+            <apex:commandButton value="{!$Label.First}" action="{!setCon.first}" disabled="{!!setCon.hasPrevious}"
+                                style="margin-left: 10px"/>
+            <apex:commandButton value="{!$Label.Previous}" action="{!setCon.previous}"
+                                disabled="{!!setCon.hasPrevious}"
+                                style="margin-left: 10px"/>
+            <apex:outputText style="margin-left: 10px"> Page: {!setCon.pageNumber} out
+                of {!pageLast} </apex:outputText>
+            <apex:commandButton value="{!$Label.Next}" action="{!setCon.next}" disabled="{!!setCon.hasNext}"
+                                style="margin-left: 10px"/>
+            <apex:commandButton value="{!$Label.Last}" action="{!setCon.last}" disabled="{!!setCon.hasNext}"
+                                style="margin-left: 10px"/>
+        </apex:pageBlock>
+    </apex:form>
+    <script>
+        let spin = document.getElementById("spinner");
+        const displayLoading = () => {
+            spin.style.display = 'block';
+        };
+
+        const hideLoading = () => {
+            spin.style.display = 'none';
+        };
+    </script>
+</apex:page>

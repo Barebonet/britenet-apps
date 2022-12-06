@@ -1,6 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import searchMovies from '@salesforce/apex/FA_SearchService.searchMovies';
-import getPopularMovies from '@salesforce/apex/FA_CalloutService.getPopularMovies';
+import getPopularMovies from '@salesforce/apex/FA_CalloutService.getFullPopularMovies';
 import searchActors from '@salesforce/apex/FA_SearchService.searchActors';
 import getPopularActors from '@salesforce/apex/FA_CalloutService.getPopularActors';
 import insertMovie from '@salesforce/apex/FA_SoqlService.addMovie';
@@ -28,6 +28,14 @@ export default class SearchMovies extends LightningElement {
     @track posterPath;
     @track releaseDate;
 
+    get acceptedFormats() {
+        return ['.jpg','.png'];
+    }
+
+    handleUploadFinished() {
+
+    }
+
     toggleMovies() {
         this.displayMovies = !this.displayMovies;
     }
@@ -51,6 +59,8 @@ export default class SearchMovies extends LightningElement {
             .then(result => {
                 this.actorList = result.results;
                 this.displayPaginateActors = this.actorList.length !== 0;
+                this.pageActorsNum = 1;
+                this.totalActorPages = 1;
             })
     }
 
@@ -63,12 +73,6 @@ export default class SearchMovies extends LightningElement {
             posterPath: this.posterPath,
             releaseDate: this.releaseDate
         }).then(result => {
-            // this.movieName = '';
-            // this.originalTitle = '';
-            // this.originalLanguage = '';
-            // this.overview = '';
-            // this.posterPath = '';
-            // this.releaseDate = '';
             this.newMovieModal = false;
         })
     }
@@ -78,42 +82,42 @@ export default class SearchMovies extends LightningElement {
     }
 
     search() {
-        if(this.name !== '') {
+        if (this.name !== '') {
             searchMovies({
                 movieName: this.name,
                 pageMoviesNumber: this.pageMoviesNum
             }).then(result => {
-                    this.movieList = result.results;
-                    this.totalMoviePages = result.total_pages;
-                    this.pageMoviesNum = result.page;
-                    this.displayPaginateMovies = this.movieList.length !== 0;
-                }).catch(error => {
-                    const event = new ShowToastEvent({
-                        title: 'Error',
-                        variant: 'error',
-                        message: error.body.message,
-                    });
-                    this.dispatchEvent(event);
-                })
-            if(this.movieList.size === 0) {
+                this.movieList = result.results;
+                this.totalMoviePages = result.total_pages;
+                this.pageMoviesNum = result.page;
+                this.displayPaginateMovies = this.movieList.length !== 0;
+            }).catch(error => {
+                const event = new ShowToastEvent({
+                    title: 'Error',
+                    variant: 'error',
+                    message: error.body.message,
+                });
+                this.dispatchEvent(event);
+            })
+            if (this.movieList.size === 0) {
 
             }
             searchActors({
                 actorName: this.name,
                 pageActorsNumber: this.pageActorsNum
             }).then(result => {
-                    this.actorList = result.results;
-                    this.totalActorPages = result.total_pages;
-                    this.pageActorsNum = result.page;
-                    this.displayPaginateActors = this.actorList.length !== 0;
-                }).catch(error => {
-                    const event = new ShowToastEvent({
-                        title: 'Error',
-                        variant: 'error',
-                        message: error.body.message
-                    });
-                    this.dispatchEvent(event);
-                })
+                this.actorList = result.results;
+                this.totalActorPages = result.total_pages;
+                this.pageActorsNum = result.page;
+                this.displayPaginateActors = this.actorList.length !== 0;
+            }).catch(error => {
+                const event = new ShowToastEvent({
+                    title: 'Error',
+                    variant: 'error',
+                    message: error.body.message
+                });
+                this.dispatchEvent(event);
+            })
         } else {
             const event = new ShowToastEvent({
                 variant: 'error',
@@ -124,15 +128,18 @@ export default class SearchMovies extends LightningElement {
     }
 
     getPopularMovies() {
-        getPopularMovies()
-            .then(result => {
-                this.movieList = result.results
-                this.displayPaginateMovies = this.movieList.length !== 0;
-            })
+        getPopularMovies({
+            page: 3
+        }).then(result => {
+            this.movieList = result.results
+            this.displayPaginateMovies = this.movieList.length !== 0;
+            this.totalMoviePages = 1;
+            this.pageMoviesNum = 1;
+        })
     }
 
     handleRefresh() {
-        if(this.name === '') {
+        if (this.name === '') {
             this.getPopularMovies();
         } else {
             this.search();
@@ -177,7 +184,7 @@ export default class SearchMovies extends LightningElement {
 
     previousActors() {
         this.pageActorsNum = this.pageActorsNum - 1;
-        if(this.pageActorsNum > 0) {
+        if (this.pageActorsNum > 0) {
             searchActors({
                 actorName: this.name,
                 pageActorsNumber: this.pageActorsNum
@@ -204,7 +211,7 @@ export default class SearchMovies extends LightningElement {
 
     previousMovies() {
         this.pageMoviesNum = this.pageMoviesNum - 1;
-        if(this.pageMoviesNum > 0) {
+        if (this.pageMoviesNum > 0) {
             searchMovies({
                 movieName: this.name,
                 pageMoviesNumber: this.pageMoviesNum
@@ -231,7 +238,7 @@ export default class SearchMovies extends LightningElement {
 
     nextActors() {
         this.pageActorsNum = this.pageActorsNum + 1;
-        if(this.pageActorsNum <= this.totalActorPages) {
+        if (this.pageActorsNum <= this.totalActorPages) {
             searchActors({
                 actorName: this.name,
                 pageActorsNumber: this.pageActorsNum
@@ -258,7 +265,7 @@ export default class SearchMovies extends LightningElement {
 
     nextMovies() {
         this.pageMoviesNum = this.pageMoviesNum + 1;
-        if(this.pageMoviesNum <= this.totalMoviePages) {
+        if (this.pageMoviesNum <= this.totalMoviePages) {
             searchMovies({
                 movieName: this.name,
                 pageMoviesNumber: this.pageMoviesNum

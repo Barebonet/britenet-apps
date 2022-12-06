@@ -9,6 +9,7 @@ export default class ActorModal extends LightningElement {
     birthday;
     knownAs;
     biography;
+    deathDay;
     @wire(MessageContext) messageContext;
 
     connectedCallback() {
@@ -18,6 +19,7 @@ export default class ActorModal extends LightningElement {
             this.birthday = result.birthday;
             this.knownAs = result.also_known_as;
             this.biography = result.biography;
+            this.deathDay = result.deathday;
         })
     }
 

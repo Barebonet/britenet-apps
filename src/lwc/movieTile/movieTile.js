@@ -1,8 +1,4 @@
-/**
- * Created by bartosz.rozpara on 24.11.2022.
- */
-
-import {LightningElement, api, track, wire } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import {
     subscribe,
     unsubscribe,

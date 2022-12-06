@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Favourite</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Favourites</value>
+    </caseValues>
+    <fields>
+        <label><!-- poster_path --></label>
+        <name>poster_path__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

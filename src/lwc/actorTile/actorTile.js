@@ -21,7 +21,6 @@ export default class ActorTile extends LightningElement {
 
     toggleActorDetails() {
         this.actorDetailsVisible = !this.actorDetailsVisible;
-        console.log(this.actor.id);
     }
 
     subscribeToMessageChannel() {

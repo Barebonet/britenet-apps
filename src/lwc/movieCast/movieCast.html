@@ -8,7 +8,7 @@
         <h1 slot="title">Movie cast</h1>
         <div class=slds-scrollable>
             <div class="slds-grid results">
-                <div class="slds-col slds-size_1-of-4 item" for:each={castList} for:item="castActor" key={castActor.id}>
+                <div class="slds-col slds-size_1-of-5 item" for:each={castList} for:item="castActor" key={castActor.id}>
                     <c-movie-cast-tile actor-cast={castActor}></c-movie-cast-tile>
                 </div>
             </div>

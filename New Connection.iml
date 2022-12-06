@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="IlluminatedCloud" version="4">
+  <component name="FacetManager">
+    <facet type="IlluminatedCloud" name="Illuminated Cloud">
+      <configuration>
+        <option name="connectionName" value="New Connection" />
+        <option name="connectionType" value="MDAPI" />
+        <option name="defaultSourceRootUrl" value="file://$MODULE_DIR$/src" />
+        <option name="moduleContents">
+          <ModuleContents>
+            <option name="manifest">
+              <Manifest>
+                <option name="types">
+                  <set>
+                    <MetadataType>
+                      <option name="name" value="AccessControlPolicy" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ActionLinkGroupTemplate" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AIApplication" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AIApplicationConfig" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AnalyticSnapshot" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AnimationRule" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ApexClass" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ApexComponent" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ApexPage" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ApexTestSuite" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ApexTrigger" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AppMenu" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AppointmentSchedulingPolicy" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ApprovalProcess" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AssignmentRule" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AssignmentRules" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AuraDefinitionBundle" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AuthProvider" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AutoResponseRule" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="AutoResponseRules" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="BrandingSet" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="BusinessProcess" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CallCenter" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CanvasMetadata" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="Certificate" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ChannelLayout" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ChatterExtension" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CleanDataService" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="Community" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CompactLayout" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ConnectedApp" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ContentAsset" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CorsWhitelistOrigin" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CspTrustedSite" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomApplication" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomApplicationComponent" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomFeedFilter" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomField" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomHelpMenuSection" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomLabel" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomLabels" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomMetadata" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomNotificationType" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomObject" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomObjectTranslation" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomPageWebLink" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomPermission" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomSite" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="CustomTab" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="Dashboard" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="DataCategoryGroup" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="DelegateGroup" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="Document" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="DuplicateRule" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EclairGeoData" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EmailServicesFunction" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EmailTemplate" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EmbeddedServiceBranding" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EmbeddedServiceConfig" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EmbeddedServiceFlowConfig" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EmbeddedServiceMenuSettings" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EntitlementProcess" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EntitlementTemplate" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EntityImplements" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EscalationRule" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="EscalationRules" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ExternalDataSource" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="ExternalServiceRegistration" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="FieldSet" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="FlexiPage" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="Flow" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="FlowCategory" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="FlowDefinition" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="GlobalValueSet" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="GlobalValueSetTranslation" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="Group" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="HomePageComponent" />
+                    </MetadataType>
+                    <MetadataType>
+                      <option name="name" value="StaticResource" />
+                    </MetadataType>
+                  </set>
+                </option>
+              </Manifest>
+            </option>
+          </ModuleContents>
+        </option>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="IlluminatedCloud (New Connection/New Connection)" jdkType="IlluminatedCloud" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

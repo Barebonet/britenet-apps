@@ -19,7 +19,6 @@ export default class BlacklistedMovies extends LightningElement {
     getBlacklisted() {
         getBlacklisted().then(result => {
             this.blacklistedMovies = result
-            console.log(JSON.stringify(this.blacklistedMovies));
         })
     }
 }

@@ -1,0 +1,65 @@
+<!--
+ - Created by bartosz.rozpara on 18.10.2022.
+ -->
+
+<apex:page id="HA_ImportFromCSV" controller="HA_ImportFromCSV">
+
+    <style>
+        .link {
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: none;
+        }
+        .spinner {
+            position: absolute;
+            z-index: 999999;
+            background-position: center;
+        }
+    </style>
+    <apex:form id="formId">
+        <apex:actionFunction name="enableProcessButtonAF" action="{!enableProcessButton}"/>
+        <apex:actionFunction name="checkCheckboxes" action="{!checkCheckboxes}"/>
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="3">
+                <apex:inputFile value="{!file}" fileName="{!fileName}" accept="text/csv" onChange="enableProcessButtonAF()"/>
+                <apex:commandLink value="Example file" action="{!downloadFile}" style="float:right; padding: 5px" target="_blank" styleClass="btn link"/>
+                <apex:commandButton id="Process" value="{!$Label.Process}" action="{!processFile}" style="float:right; padding: 5px" disabled="{!processButton}" status="{!$Component.formId.status.spinner.status}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:actionStatus id="pageStatus" styleClass="spinner" rendered="{!(doctors.empty)}">
+            <apex:facet name="start">
+                <apex:outputPanel >
+                    <img src="/img/loading32.gif" width="25" height="25"  alt="Loading..."/>
+                </apex:outputPanel>
+            </apex:facet>
+        </apex:actionStatus>
+        <div role="status">
+            <apex:pageBlock rendered="{!NOT(doctors.empty)}">
+                <apex:pageBlockTable value="{!doctors}" var="docs">
+                    <apex:column headerValue="{!$Label.Select}">
+                        <apex:inputCheckbox value="{!docs.checkToImport}" onChange="checkCheckboxes()"/>
+                    </apex:column>
+                    <apex:column value="{!docs.doctor.FirstName__c}"/>
+                    <apex:column value="{!docs.doctor.LastName__c}"/>
+                    <apex:column value="{!docs.doctor.Email__c}"/>
+                    <apex:column value="{!docs.doctor.PhoneNumber__c}"/>
+                    <apex:column value="{!docs.doctor.Country__c}"/>
+                    <apex:column value="{!docs.doctor.City__c}"/>
+                    <apex:column value="{!docs.doctor.Street_Address__c}"/>
+                    <apex:column value="{!docs.doctor.Post_Code__c}"/>
+                    <apex:column headerValue="{!$Label.InsertResults}" rendered="{!viewResults}">
+                        <apex:outputLink value="/{!docs.doctor.Id}" target="_blank"
+                                         rendered="{!docs.isSuccess}">{!$Label.Success}</apex:outputLink>
+                        <apex:outputText value="{!docs.error}" rendered="{!docs.isError}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <apex:commandButton value="{!$Label.All}" action="{!selectAll}" style="padding: 5px"/>
+                <apex:commandButton value="{!$Label.None}" action="{!deselectAll}" style="padding: 5px"/>
+                <apex:commandButton value="{!$Label.Reverse}" action="{!reverseSelect}" style="padding: 5px"/>
+                <apex:commandButton value="{!$Label.Insert}" action="{!insertDoctors}"
+                                    style="float:right; ; padding: 5px" disabled="{!insertButton}"/>
+            </apex:pageBlock>
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,12 @@
+<!--
+ - Created by bartosz.rozpara on 17.10.2022.
+ -->
+
+<apex:page id="HA_ExportToCSV" showHeader="false" sideBar="false" standardStylesheets="false"
+           controller="HA_DoctorController" readOnly="true"
+           contentType="application/x-excel#Doctors.csv; charset=UTF-8">
+"{!$Label.FullName}";"{!$Label.Country}";"{!$Label.Email}"
+    <apex:repeat value="{!doctorsToExport}" var="doc">
+"{!doc.FullName__c}";"{!doc.Country__c}";"{!doc.Email__c}"
+    </apex:repeat>
+</apex:page>

@@ -1,6 +1,9 @@
 <!-- Search Movies -->
 <template>
     <lightning-card>
+        <div class="button slds-float_right">
+            <lightning-button label="New Movie" variant="brand" onclick={openModalNewMovie}></lightning-button>
+        </div>
         <div class="slds-m-around_medium">
             <div class="slds-m-bottom_small">
                 <lightning-input type="text"
@@ -26,9 +29,6 @@
 
     <div class=container if:true={displayMovies}>
         <lightning-card>
-            <div class="button slds-float_right">
-                <lightning-button label="New Movie" variant="brand" onclick={openModalNewMovie}></lightning-button>
-            </div>
             <div>
                 <h1 class="slds-text-heading_large slds-text-align_center" slot="title"><b>Movies</b></h1>
                 <div class="slds-grid results">
@@ -45,7 +45,7 @@
                     <lightning-button label="Previous"
                                       variant="brand" onclick={previousMovies}
                                       class="slds-p-right_medium"></lightning-button>
-                    <div style="padding-right: 10px"><b>{pageMoviesNum} of {totalMoviePages}</b></div>
+                    <div style="padding-right: 20px"><b>{pageMoviesNum} of {totalMoviePages}</b></div>
                     <lightning-button label="Next"
                                       variant="brand" onclick={nextMovies}
                                       class="slds-p-right_medium"></lightning-button>
@@ -61,9 +61,6 @@
 
     <div class=container if:true={displayActors}>
         <lightning-card>
-<!--            <div class="button slds-float_right">-->
-<!--                <lightning-button label="New Actor" variant="brand"></lightning-button>-->
-<!--            </div>-->
             <div>
                 <h1 class="slds-text-heading_large slds-text-align_center" slot="title"><b>Actors</b></h1>
                 <div class="slds-grid results">
@@ -78,6 +75,7 @@
                     <lightning-button label="Previous"
                                       variant="brand" onclick={previousActors}
                                       class="slds-p-right_medium"></lightning-button>
+                    <div style="padding-right: 20px"><b>{pageActorsNum} of {totalActorPages}</b></div>
                     <lightning-button label="Next"
                                       variant="brand" onclick={nextActors}
                                       class="slds-p-right_medium"></lightning-button>
@@ -137,7 +135,7 @@
                 <lightning-modal-footer>
                     <div class="flex">
                         <lightning-button class="slds-align_absolute-center" label="Add"
-                        onclick={addMovie}></lightning-button>
+                                          onclick={addMovie}></lightning-button>
                         <lightning-button class="slds-align_absolute-center" label="Close"
                                           onclick={closeNewMovieModal}></lightning-button>
                     </div>

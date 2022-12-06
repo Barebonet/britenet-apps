@@ -1,0 +1,17 @@
+<!--
+ - Created by bartosz.rozpara on 14.10.2022.
+ -->
+
+<apex:page id="HA_RandomDoctors" controller="HA_RandomDoctors">
+    <apex:form >
+        <apex:pageBlock title="{!$Label.Doctors}" rendered="true">
+            <apex:pageBlockTable value="{!randomDoctors}" var="rd">
+                <apex:column value="{!rd.FullName__c}"/>
+                <apex:column value="{!rd.Country__c}"/>
+                <apex:column value="{!rd.Email__c}"/>
+                <apex:column value="{!rd.PhoneNumber__c}"/>
+                <apex:column value="{!rd.Birth_Date__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,338 @@
+<apex:page id="HA_RestSearchDoctor" controller="HA_RestSearchDoctorController">
+    <apex:slds />
+    <style>
+
+        .modalNew {
+            display: none;
+        }
+
+        .modalEdit {
+            display: none;
+        }
+
+        .modalDelete {
+            display: none;
+        }
+    </style>
+    <apex:form id="form">
+        <apex:actionFunction name="searchHospital" action="{!searchHospital}"/>
+        <apex:outputPanel id="outputSearch">
+            <apex:pageMessages />
+            <div>
+                <apex:commandButton id="buttonNew" value="{!$Label.New}" onClick="showNewHospital()"
+                                    reRender="newContent"
+                                    styleClass="slds-button slds-button_neutral slds-float_right"/>
+            </div>
+
+            <div id="searchElements" class="slds-form" role="list" style="width: 50%; margin-left: 20%; margin-top:1%;">
+                <div id="divSearch" class="slds-form__row">
+                    <div id="nameInput" class="slds-form__item" role="listitem" >
+                        <div id="nameItself" class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                            <label class="slds-form-element__label" for="single-form-element-id-02">
+                                <abbr class="slds-required" title="required">* </abbr>{!$Label.HospitalName} </label>
+                            <div id="NameHosp" class="slds-form-element__control">
+                                <apex:inputText id="hospitalName" value="{!hospitalName}" required="false" styleClass="slds-input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="countryInput" class="slds-form__item" role="listitem">
+                        <div id="countryItself" class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                            <label class="slds-form-element__label" for="single-form-element-id-02"> {!$Label.Country} </label>
+                            <div id="InputCountry" class="slds-form-element__control">
+                                <apex:selectList id="countries" value="{!hospitalCountry}" size="1" styleClass="slds-select">
+                                    <apex:selectOptions value="{!selectOptions}"/>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem" style="margin-left: 24%;  margin-bottom: 5%; margin-top: 2%">
+                        <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                            <div class="slds-form-element__control">
+                                <apex:commandButton value="{!$Label.Search}" action="{!searchHospital}"  styleClass="slds-button slds-button_neutral" style="margin-right: 2%; "/>
+                                <apex:commandButton value="{!$Label.Clear}" action="{!clearSearch}" styleClass="slds-button slds-button_neutral" immediate="true" onClick="clearSearch()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel title="{!$Label.Hospitals}" rendered="{!NOT(hospitals.empty)}">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-label="Hospitals">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Hospital Name">{!$Label.HospitalName}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Country">{!$Label.Country}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="City">{!$Label.City}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Street Address">{!$Label.StreetAddress}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Post Code">{!$Label.PostCode}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Action Buttons">{!$Label.ActionButtons}</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <apex:repeat value="{!hospitals}" var="hosp">
+                    <tr class="slds-hint-parent">
+                        <th data-label="Hospital Name" scope="row">
+                            <div class="slds-truncate" title="Hospital Name">{!hosp.hospName}</div>
+                        </th>
+                        <th data-label="Country" scope="row">
+                            <div class="slds-truncate" title="Country">{!hosp.country}</div>
+                        </th>
+                        <th data-label="City" scope="row">
+                            <div class="slds-truncate" title="City">{!hosp.city}</div>
+                        </th>
+                        <th data-label="Street Address" scope="row">
+                            <div class="slds-truncate" title="Street Address">{!hosp.streetAddress}</div>
+                        </th>
+                        <th data-label="Postal Code" scope="row">
+                            <div class="slds-truncate" title="Postal Code">{!hosp.postalCode}</div>
+                        </th>
+                        <th data-label="Action Buttons" scope="row">
+                            <apex:commandLink value="{!$Label.Edit}" action="{!getCurrentHospital}"
+                                              onComplete="showEditHospital()" reRender="editContent"
+                                              styleClass="slds-m-top_xx-small slds-button slds-button_neutral btnSubmit">
+                                <apex:param name="hospitalId" value="{!hosp.hospId}" assignTo="{!tempHospitalId}"/>
+                            </apex:commandLink>
+                            <apex:commandLink value="{!$Label.Delete}" action="{!getCurrentHospital}" onComplete="showDeleteHospital()" reRender="modalDelete"
+                                              styleClass="slds-button slds-button_text-destructive btnSubmit">
+                                <apex:param name="hospitalId" value="{!hosp.hospId}" assignTo="{!tempHospitalId}"/>
+                            </apex:commandLink>
+                        </th>
+                    </tr>
+                </apex:repeat>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+
+
+        <div id="modalNew" class="modalNew">
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+                     class="slds-modal slds-fade-in-open">
+                <apex:outputPanel id="newContent">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <h1 id="modal-heading-01"
+                                class="slds-modal__title slds-hyphenate">{!$Label.NewHospital}</h1>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-3">
+                                    <abbr class="slds-required" title="required">* </abbr>{!$Label.HospitalName}
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToInsert.hospName}" id="text-input-id-3"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-4">
+                                    {!$Label.PhoneNumber}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToInsert.phoneNum}" id="text-input-id-4"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-5">
+                                    <abbr class="slds-required" title="required">* </abbr>{!$Label.Country}</label>
+                                <apex:selectList value="{!hospitalToInsert.country}" required="false" size="1"
+                                                 multiselect="false" styleClass="slds-select">
+                                    <apex:selectOptions value="{!selectOptions}"/>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-6">
+                                    {!$Label.City}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToInsert.city}" id="text-input-id-6"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-7">
+                                    {!$Label.StreetAddress}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToInsert.streetAddress}" id="text-input-id-7"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-8">
+                                    {!$Label.PostCode}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToInsert.postalCode}" id="text-input-id-8"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <apex:commandButton value="{!$Label.Cancel}" action="{!clearHospital}"
+                                                styleClass="slds-button slds-button_neutral"/>
+                            <apex:commandButton value="{!$Label.Save}" action="{!insertHospital}" onComplete="searchHospital()"
+                                                styleClass="slds-button slds-button_brand"/>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </div>
+
+        <div id="modalEdit" class="modalEdit">
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+                     class="slds-modal slds-fade-in-open">
+                <apex:outputPanel id="editContent">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <h1 id="modal-heading-01"
+                                class="slds-modal__title slds-hyphenate">{!$Label.EditHospital}</h1>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-9">
+                                    <abbr class="slds-required" title="required">* </abbr>{!$Label.HospitalName}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToUpdate.hospName}" id="text-input-id-9" required=""
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-10">
+                                    {!$Label.PhoneNumber}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToUpdate.phoneNum}" id="text-input-id-10"
+                                                    required=""
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-15">
+                                    {!$Label.Country}</label>
+                                <apex:selectList value="{!hospitalToUpdate.country}" required="false" size="1"
+                                                 multiselect="false" styleClass="slds-select">
+                                    <apex:selectOptions value="{!selectOptions}"/>
+                                </apex:selectList>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-11">
+                                    {!$Label.City}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToUpdate.city}" id="text-input-id-11" required=""
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-12">
+                                    {!$Label.StreetAddress}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToUpdate.streetAddress}" id="text-input-id-12"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-13">
+                                    {!$Label.PostCode}</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputText value="{!hospitalToUpdate.postalCode}" id="text-input-id-13"
+                                                    required="false"
+                                                    styleClass="slds-input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <apex:commandButton value="{!$Label.Cancel}" action="{!clearHospital}"
+                                                styleClass="slds-button slds-button_neutral"/>
+                            <apex:commandButton value="{!$Label.Save}" action="{!updateHospital}" onComplete="searchHospital()"
+                                                styleClass="slds-button slds-button_brand"/>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </div>
+
+        <div id="modalDelete" class="modalDelete">
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+                     class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                        <span class="slds-assistive-text">Cancel and close</span>
+                    </button>
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{!$Label.DeleteModal}</h1>
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p>{!$Label.DeleteHospital}</p>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <apex:commandButton value="{!$Label.No}" styleClass="slds-button slds-button_neutral"/>
+                        <apex:commandButton value="{!$Label.Yes}" action="{!deleteHospital}"
+                                            styleClass="slds-button slds-button_destructive"/>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </div>
+    </apex:form>
+    <script>
+        function clearSearch() {
+            document.getElementById('{!$Component.HA_RestSearchDoctor.form.hospitalName}').value = '';
+            document.getElementById('{!$Component.HA_SoapSearchDoctor.form.countries}').value = 'None';
+            return false;
+        }
+
+        function showNewHospital() {
+            let modalNew = document.getElementById("modalNew");
+            modalNew.classList.remove("modalNew");
+        }
+
+        function showEditHospital() {
+            let modalNew = document.getElementById("modalEdit");
+            modalNew.classList.remove("modalEdit");
+        }
+
+        function showDeleteHospital() {
+            let modalNew = document.getElementById("modalDelete");
+            modalNew.classList.remove("modalDelete");
+        }
+    </script>
+</apex:page>

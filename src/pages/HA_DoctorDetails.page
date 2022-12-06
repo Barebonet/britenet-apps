@@ -1,0 +1,249 @@
+<apex:page id="DoctorDetails" standardController="Doctor__c" extensions="HA_DoctorDetailsController">
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css"/>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"/>
+    <style>
+        .customPopup{
+             background-color: white;
+             border-style: solid;
+             border-width: 2px;
+             left: 50%;
+             padding:10px;
+             position: absolute;
+             z-index: 9999;
+             width: 500px;
+             margin-left: -250px;
+             top:100px;
+         }
+        .datePicker {
+            z-index: 9999;
+        }
+        .closeButton {
+            text-decoration: none;
+            display: flex;
+            justify-content: right;
+            font-size: 20px;
+        }
+        .ul{text-decoration:none}
+    </style>
+    <apex:form >
+        <apex:pageBlock title="{!$Label.DoctorDetails}" rendered="{!status == 'view'}">
+
+            <apex:outputPanel id="popup">
+                <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!popupVisible}">
+                    <apex:outputText >{!$Label.DeleteConfirm}</apex:outputText>
+                    <apex:commandButton value="{!$Label.Yes}" action="{!deleteDoctor}">
+                        <apex:param value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                    </apex:commandButton>
+                    <apex:commandButton value="{!$Label.No}" action="{!hidePopup}" rerender="popup"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+
+            <div align="center">
+                <apex:commandLink value="{!$Label.Edit}" action="{!directToDoctorDetails}" styleClass="btn"  style="padding: 4px; text-decoration: none">
+                    <apex:param name="doctorId" value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                    <apex:param name="status" value="{!'edit'}" assignTo="{!status}"/>
+                </apex:commandLink>
+                <apex:commandButton value="{!$Label.Hire}" action="{!showModal}" style="margin-left: 10px"/>
+                <apex:commandButton value="{!$Label.Delete}" action="{!showPopup}" reRender="popup" style="margin-left: 10px">
+                    <apex:param value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                </apex:commandButton>
+            </div>
+
+            <div style="display: flex; flex-direction: row">
+                <div>
+                    <apex:pageBlockSection columns="2">
+                        <apex:image value="{!URLFOR($Action.Attachment.Download, currentPicture)}" rendered="{!(currentPicture != null)}"
+                                    width="150px" height="150px"/>
+                        <apex:image value="{!defaultPhotoURL}" rendered="{!(currentPicture == null)}"
+                                    width="150px" height="150px"/>
+
+                    </apex:pageBlockSection>
+                </div>
+                <div style="width: -webkit-fill-available;">
+                <apex:pageBlockSection title="{!$Label.PersonalData}">
+                    <apex:pageBlockSection >
+                        <apex:outputField value="{!doctor.FirstName__c}" label="{!$Label.FirstName}"/>
+                        <apex:outputField value="{!doctor.LastName__c}" label="{!$Label.LastName}"/>
+                        <apex:pageBlockSectionItem >
+                            <label>Phone</label>
+                            <apex:commandButton onClick="ClipBoard('{!$Component.copytext}');" rerender="copytext" value="{!$Label.Copy}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:outputField value="{!doctor.Birth_Date__c}" label="{!$Label.BirthDate}"/>
+                        <apex:outputField value="{!doctor.Email__c}" label="{!$Label.Email}"/>
+                        <apex:outputPanel ID="copytext" STYLE="display:none">
+                                {!doctor.PhoneNumber__c}
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlockSection>
+                </div>
+            </div>
+
+            <apex:pageBlockSection title="{!$Label.Address}">
+                <apex:pageBlockSection >
+                    <apex:outputField value="{!doctor.Country__c}" label="{!$Label.Country}"/>
+                    <apex:outputField value="{!doctor.City__c}" label="{!$Label.City}"/>
+                    <apex:outputField value="{!doctor.Street_Address__c}" label="{!$Label.StreetAddress}"/>
+                    <apex:outputField value="{!doctor.Post_Code__c}" label="{!$Label.PostCode}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection >
+                    <apex:outputPanel rendered="{!isMapVisible}">
+                        <div id="map" style="width: 500px; height: 300px; z-index:0; margin: 0 auto"></div>
+                            <script>
+                                let map = L.map('map').setView([{!doctorLatitude}, {!doctorLongitude}], 12);
+                                mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+                                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                       {attribution: '&copy; ' + mapLink + ' Contributors', maxZoom: 18,}).addTo(map);
+
+                                let m = L.marker([{!doctorLatitude}, {!doctorLongitude}], { 'title': 'Your adress' })
+                                .bindPopup('{!doctor.Street_Address__c}, {!doctor.City__c}, {!doctor.Country__c}')
+                                       .addTo(map)
+                            </script>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:pageBlockSection>
+
+
+
+            <apex:pageBlockSection id="contracts" columns="1" rendered="{!(contracts.size > 0)}">
+                <apex:pageBlockTable value="{!contracts}" var="con" columns="4">
+                    <apex:column value="{!con.Name}"/>
+                    <apex:column value="{!con.Start_Date__c}"/>
+                    <apex:column value="{!con.End_Date__c}"/>
+                    <apex:column value="{!con.Hosp__r.Name}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+
+            <div align="center">
+                <apex:commandLink value="{!$Label.Edit}" action="{!directToDoctorDetails}" styleClass="btn" style="padding: 4px; text-decoration: none">
+                    <apex:param name="Id" value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                    <apex:param name="status" value="{!'edit'}" assignTo="{!status}"/>
+                </apex:commandLink>
+                <apex:commandButton value="{!$Label.Hire}" action="{!showModal}" style="margin-left: 10px"/>
+                <apex:commandButton value="{!$Label.Delete}" action="{!showPopup}"
+                                reRender="popup" style="margin-left: 10px">
+                    <apex:param value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                </apex:commandButton>
+            </div>
+        </apex:pageBlock>
+
+
+        <apex:pageBlock title="{!$Label.EditDoctor}" rendered="{!status == 'edit'}">
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="2">
+                    <apex:image value="{!URLFOR($Action.Attachment.Download, currentPicture)}" rendered="{!(currentPicture != null)}"
+                                width="150px" height="150px"/>
+                    <apex:image value="{!defaultPhotoURL}" rendered="{!(currentPicture == null)}"
+                                width="150px" height="150px"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="2">
+                    <apex:inputFile id="uploadFile" value="{!file}" fileName="{!fileName}" accept="image/jpeg,image/png"/>
+                    <apex:commandButton value="{!$Label.Upload}" action="{!saveFile}"/>
+                    <apex:commandButton value="{!$Label.SetDefaultPhoto}" action="{!setDefaultPhoto}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+
+            <apex:pageBlockSection title="{!$Label.PersonalData}">
+                <apex:inputField value="{!doctor.FirstName__c}" label="{!$Label.FirstName}"/>
+                <apex:inputField value="{!doctor.LastName__c}" label="{!$Label.LastName}"/>
+                <apex:inputField value="{!doctor.Birth_Date__c}" label="{!$Label.BirthDate}"/>
+                <apex:inputField value="{!doctor.Email__c}" label="Email"/>
+                <apex:inputField value="{!doctor.PhoneNumber__c}" label="Phone Number"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.Address}">
+                <apex:inputField value="{!doctor.Country__c}" label="{!$Label.Country}"/>
+                <apex:inputField value="{!doctor.City__c}" label="{!$Label.City}"/>
+                <apex:inputField value="{!doctor.Street_Address__c}" label="{!$Label.StreetAddress}"/>
+                <apex:inputField value="{!doctor.Post_Code__c}" label="{!$Label.PostCode}"/>
+            </apex:pageBlockSection>
+
+            <apex:panelGrid columns="2" style="margin: 0 auto; justify-content: center; text-align: center">
+                <apex:commandLink value="{!$Label.Save}" action="{!saveEdit}" styleClass="btn" style="text-decoration: none"/>
+                <apex:commandLink value="{!$Label.Cancel}" action="{!directToDoctorDetails}" styleClass="btn" style="padding: 4px; text-decoration: none">
+                    <apex:param name="doctorId" value="{!doctor.Id}" assignTo="{!doctorId}"/>
+                    <apex:param name="status" value="{!'view'}" assignTo="{!status}"/>
+                </apex:commandLink>
+            </apex:panelGrid>
+
+        </apex:pageBlock>
+
+
+        <apex:outputPanel id="hireDoctorPanel" rendered="{!displayModal}" style="background-color: white;
+             border-style: solid;
+             border-width: 2px;
+             padding:10px;
+             position: absolute;
+             z-index: 9999;
+             width: 1500px;
+             margin-left: 20px;
+             top:50px;
+             box-shadow: 20px 20px 40px 1px #656565;">
+            <section role="dialog">
+                <div>
+                    <div class="closeButton">
+                        <apex:commandLink action="{!closeModal}" styleClass="ul" immediate="true">&times;</apex:commandLink>
+                    </div>
+                    <div>
+                        <apex:pageBlock title="Hire doctor">
+                            <apex:pageBlockSection >
+                                <apex:inputField value="{!hospital.Name}" required="true"/>
+                                <apex:inputField value="{!hospital.Country__c}" label="{!$Label.Country}"/>
+                            </apex:pageBlockSection>
+                            <apex:pageBlockSection columns="1">
+                                <apex:panelGrid columns="2"
+                                                style="margin: 0 auto; justify-content: center; text-align: center">
+                                    <apex:commandButton value="{!$Label.Search}" action="{!searchHospital}"/>
+                                    <apex:commandButton value="{!$Label.Clear}" action="{!clearSearch}"
+                                                        immediate="true"/>
+                                </apex:panelGrid>
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                        <apex:pageBlock title="Hospitals" rendered="{!NOT(hospitals.empty)}">
+                            <apex:pageBlockTable value="{!hospitals}" var="hosp">
+                                <apex:column headerValue="{!$Label.ActionButtons}">
+                                    <apex:commandLink value="Select" action="{!displayLastBlock}" styleClass="btn" style="text-decoration: none">
+                                        <apex:param value="{!hosp.Id}" assignTo="{!tempHospId}" name="HospitalId"/>
+                                    </apex:commandLink>
+                                </apex:column>
+                                <apex:column value="{!hosp.Name}"/>
+                                <apex:column headerValue="{!$Label.Country}" value="{!hosp.Country__c}"/>
+                                <apex:column headerValue="{!$Label.City}" value="{!hosp.City__c}"/>
+                                <apex:column headerValue="{!$Label.PostCode}" value="{!hosp.Post_Code__c}"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlock>
+                        <apex:pageBlock title="Contract" rendered="{!displayLast}">
+                            <apex:pageBlockSection >
+                                <apex:outputField value="{!tempHosp.Name}"/>
+                                <apex:outputField value="{!doctor.FullName__c}" label="{!$Label.FullName}"/>
+                                <apex:inputField value="{!contract.Start_Date__c}"/>
+                                <apex:inputField value="{!contract.End_Date__c}"/>
+                            </apex:pageBlockSection>
+                            <apex:panelGrid columns="2"
+                                            style="margin: 0 auto; justify-content: center; text-align: center">
+                                <apex:commandButton value="{!$Label.Save}" action="{!insertNewContract}"/>
+                                <apex:commandButton value="{!$Label.Cancel}" action="{!closeModal}" immediate="true"/>
+                            </apex:panelGrid>
+                        </apex:pageBlock>
+                    </div>
+                </div>
+            </section>
+        </apex:outputPanel>
+    </apex:form>
+
+    <script>
+        function ClipBoard(copytextid){
+            copyToClipboard(copytextid);
+        }
+        function copyToClipboard(elementId) {
+            let aux = document.createElement("input");
+            aux.setAttribute("value", document.getElementById(elementId).innerHTML.trim());
+            document.body.appendChild(aux);
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
+        }
+    </script>
+</apex:page>

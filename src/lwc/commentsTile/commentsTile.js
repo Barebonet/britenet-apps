@@ -15,8 +15,6 @@ export default class CommentsTile extends LightningElement {
 
     connectedCallback() {
         this.buttonVisible = this.comment.author === userName;
-        console.log(userName);
-        console.log(this.comment.author);
     }
 
     handleDeleteCommand() {

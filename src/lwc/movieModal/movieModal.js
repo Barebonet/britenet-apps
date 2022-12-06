@@ -27,7 +27,6 @@ export default class MovieModal extends LightningElement {
 
     connectedCallback() {
         this.handleDeleteCommand()
-        console.log(this.movie.id);
         checkIfFav({
             movieId: this.movie.id
         }).then(result => {
@@ -66,7 +65,6 @@ export default class MovieModal extends LightningElement {
             id: this.movie.id
         }).then(result => {
             this.rating = result;
-            console.log(this.rating);
         })
     }
 

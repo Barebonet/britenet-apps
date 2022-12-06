@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ActionButtons</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Action buttons</shortDescription>
+        <value>Action buttons</value>
+    </labels>
+    <labels>
+        <fullName>Address</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Address</shortDescription>
+        <value>Address</value>
+    </labels>
+    <labels>
+        <fullName>All</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>All</shortDescription>
+        <value>All</value>
+    </labels>
+    <labels>
+        <fullName>BirthDate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Birth Date</shortDescription>
+        <value>Birth of Date</value>
+    </labels>
+    <labels>
+        <fullName>Cancel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>City</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>City</shortDescription>
+        <value>City</value>
+    </labels>
+    <labels>
+        <fullName>Clear</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Clear</shortDescription>
+        <value>Clear</value>
+    </labels>
+    <labels>
+        <fullName>CloseDate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Close date</shortDescription>
+        <value>Close date</value>
+    </labels>
+    <labels>
+        <fullName>ContractName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contract name</shortDescription>
+        <value>Contract name</value>
+    </labels>
+    <labels>
+        <fullName>Copy</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Copy</shortDescription>
+        <value>Copy</value>
+    </labels>
+    <labels>
+        <fullName>Country</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Country</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>Delete</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>DeleteConfirm</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeleteConfirm</shortDescription>
+        <value>Are you sure to delete this doctor?</value>
+    </labels>
+    <labels>
+        <fullName>DeleteHospital</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete Hospital</shortDescription>
+        <value>Are you sure you want to delete this hospital?</value>
+    </labels>
+    <labels>
+        <fullName>DeleteModal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeleteModal</shortDescription>
+        <value>Delete Hospital</value>
+    </labels>
+    <labels>
+        <fullName>DoctorDetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DoctorDetails</shortDescription>
+        <value>Doctor details</value>
+    </labels>
+    <labels>
+        <fullName>Doctors</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Doctors</shortDescription>
+        <value>Doctors</value>
+    </labels>
+    <labels>
+        <fullName>Edit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>EditDoctor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit Doctor</shortDescription>
+        <value>Edit Doctor</value>
+    </labels>
+    <labels>
+        <fullName>EditHospital</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit Hospital</shortDescription>
+        <value>Edit Hospital</value>
+    </labels>
+    <labels>
+        <fullName>Email</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>ExportToCSV</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ExportToCSV</shortDescription>
+        <value>Export to CSV</value>
+    </labels>
+    <labels>
+        <fullName>ExportToXLS</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ExportToXLS</shortDescription>
+        <value>Export to XLS</value>
+    </labels>
+    <labels>
+        <fullName>First</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>First</shortDescription>
+        <value>First</value>
+    </labels>
+    <labels>
+        <fullName>FirstName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FirstName</shortDescription>
+        <value>First name</value>
+    </labels>
+    <labels>
+        <fullName>FullName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Full Name</shortDescription>
+        <value>Full Name</value>
+    </labels>
+    <labels>
+        <fullName>Hire</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Hire</shortDescription>
+        <value>Hire</value>
+    </labels>
+    <labels>
+        <fullName>HospitalName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Hospital Name</shortDescription>
+        <value>Hospital name</value>
+    </labels>
+    <labels>
+        <fullName>Hospitals</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Hospitals</shortDescription>
+        <value>Hospitals</value>
+    </labels>
+    <labels>
+        <fullName>Insert</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Insert</shortDescription>
+        <value>Insert</value>
+    </labels>
+    <labels>
+        <fullName>InsertResults</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InsertResults</shortDescription>
+        <value>Insert Results</value>
+    </labels>
+    <labels>
+        <fullName>Last</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last</shortDescription>
+        <value>Last</value>
+    </labels>
+    <labels>
+        <fullName>LastName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last Name</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>New</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>NewDoctor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NewDoctor</shortDescription>
+        <value>New Doctor</value>
+    </labels>
+    <labels>
+        <fullName>NewHospital</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New Hospital</shortDescription>
+        <value>New Hospital</value>
+    </labels>
+    <labels>
+        <fullName>Next</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>No</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No</shortDescription>
+        <value>No</value>
+    </labels>
+    <labels>
+        <fullName>None</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>None</shortDescription>
+        <value>None</value>
+    </labels>
+    <labels>
+        <fullName>PersonalData</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PersonalData</shortDescription>
+        <value>Personal data</value>
+    </labels>
+    <labels>
+        <fullName>PhoneNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Phone Number</shortDescription>
+        <value>Phone Number</value>
+    </labels>
+    <labels>
+        <fullName>PostCode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Post Code</shortDescription>
+        <value>Post Code</value>
+    </labels>
+    <labels>
+        <fullName>Previous</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>Process</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Process</shortDescription>
+        <value>Process</value>
+    </labels>
+    <labels>
+        <fullName>ResultsPerPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Results per page</shortDescription>
+        <value>Results per page</value>
+    </labels>
+    <labels>
+        <fullName>Reverse</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reverse</shortDescription>
+        <value>Reverse</value>
+    </labels>
+    <labels>
+        <fullName>Save</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Search</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>SearchDoctor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search Doctor</shortDescription>
+        <value>Search Doctors</value>
+    </labels>
+    <labels>
+        <fullName>SearchHospital</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search Hospital</shortDescription>
+        <value>Search Hospitals</value>
+    </labels>
+    <labels>
+        <fullName>Select</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>SetDefaultPhoto</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Set default photo</shortDescription>
+        <value>Set default photo</value>
+    </labels>
+    <labels>
+        <fullName>StartDate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Start date</shortDescription>
+        <value>Start date</value>
+    </labels>
+    <labels>
+        <fullName>StreetAddress</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Street Address</shortDescription>
+        <value>Street Address</value>
+    </labels>
+    <labels>
+        <fullName>Success</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Success</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>Upload</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upload</shortDescription>
+        <value>Upload</value>
+    </labels>
+    <labels>
+        <fullName>View</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>View</shortDescription>
+        <value>View</value>
+    </labels>
+    <labels>
+        <fullName>Yes</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Yes</shortDescription>
+        <value>Yes</value>
+    </labels>
+</CustomLabels>

@@ -15,6 +15,5 @@ export default class ActorMoviesList extends LightningElement {
         }).then(result => {
             this.moviesList = result;
         })
-        console.log(this.moviesList);
     }
 }
