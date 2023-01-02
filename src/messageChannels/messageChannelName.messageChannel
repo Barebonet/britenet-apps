@@ -10,5 +10,13 @@
         <description>This is the record Id that changed</description>
         <fieldName>booleanForMovieModal</fieldName>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <description>This is the record Id that changed</description>
+        <fieldName>deletedBlacklisted</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>This is the record Id that changed</description>
+        <fieldName>deletedFavourite</fieldName>
+    </lightningMessageFields>
     <masterLabel>SampleMessageChannel</masterLabel>
 </LightningMessageChannel>

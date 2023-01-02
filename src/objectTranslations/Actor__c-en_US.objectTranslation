@@ -13,6 +13,14 @@
         <name>Adult__c</name>
     </fields>
     <fields>
+        <label><!-- Biography --></label>
+        <name>Biography__c</name>
+    </fields>
+    <fields>
+        <label><!-- Birthday --></label>
+        <name>Birthday__c</name>
+    </fields>
+    <fields>
         <label><!-- Popularity --></label>
         <name>Popularity__c</name>
     </fields>

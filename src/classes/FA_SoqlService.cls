@@ -1,7 +1,3 @@
-/**
- * Created by bartosz.rozpara on 23.11.2022.
- */
-
 public with sharing class FA_SoqlService {
     @AuraEnabled
     public static List<FA_ClassesForCallouts.Actor> getActors(String actorName) {
@@ -20,12 +16,14 @@ public with sharing class FA_SoqlService {
     @AuraEnabled
     public static List<FA_ClassesForCallouts.Movie> getMovies(String movieName) {
         String query = 'SELECT Id, Name, Adult__c, OriginalLanguage__c, OriginalTitle__c, Overview__c, ' +
-                'PosterPath__c, ReleaseDate__c FROM Movie__c WHERE Name = \'%' + movieName + '%\'';
+                'PosterPath__c, ReleaseDate__c FROM Movie__c WHERE Name = \'%' + movieName + '%\' AND ApprovalStatus__c = \'Approved\'';
         List<FA_ClassesForCallouts.Movie> moviesToSend = new List<FA_ClassesForCallouts.Movie>();
         List<Movie__c> movies = Database.query(query);
         if(!movies.isEmpty()) {
             for(Movie__c movie : movies) {
+                List<Attachment> atts = [SELECT Id, Body, Name FROM Attachment WHERE ParentId = :movie.Id];
                 FA_ClassesForCallouts.Movie movieToList = mapToMovieWrapper(movie);
+                movieToList.attachment = atts.get(0);
                 moviesToSend.add(movieToList);
             }
         }
@@ -34,15 +32,25 @@ public with sharing class FA_SoqlService {
 
     @AuraEnabled
     public static void addMovie(String movieName, String originalTitle, String originalLanguage,
-            String overview, String posterPath, String releaseDate) {
-        Movie__c movie = new Movie__c();
-        movie.Name = movieName;
-        movie.PosterPath__c = posterPath;
-        movie.ReleaseDate__c = releaseDate;
-        movie.OriginalTitle__c = originalTitle;
-        movie.Overview__c = overview;
-        movie.OriginalLanguage__c = originalLanguage;
-        insert movie;
+            String overview, String posterPath, String releaseDate, Blob blobFile, String fileName) {
+        try {
+            Movie__c movie = new Movie__c();
+            movie.Name = movieName;
+            movie.PosterPath__c = posterPath;
+            movie.ReleaseDate__c = releaseDate;
+            movie.OriginalTitle__c = originalTitle;
+            movie.Overview__c = overview;
+            movie.OriginalLanguage__c = originalLanguage;
+            insert movie;
+            Attachment att = new Attachment();
+            att.Body = blobFile;
+            att.Name = fileName;
+            att.ParentId = movie.Id;
+            insert att;
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
 
     @AuraEnabled

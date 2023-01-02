@@ -162,6 +162,25 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Biography__c</fullName>
+        <externalId>false</externalId>
+        <label>Biography</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Birthday__c</fullName>
+        <externalId>false</externalId>
+        <label>Birthday</label>
+        <length>12</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Popularity__c</fullName>
         <externalId>false</externalId>
         <label>Popularity</label>

@@ -154,6 +154,45 @@
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
     <fields>
+        <fullName>MovieId__c</fullName>
+        <externalId>false</externalId>
+        <label>Movie Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OriginalTitle__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Title</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Overview__c</fullName>
+        <externalId>false</externalId>
+        <label>Overview</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ReleaseDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Release Date</label>
+        <length>12</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>poster_path__c</fullName>
         <externalId>false</externalId>
         <label>poster_path</label>

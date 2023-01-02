@@ -1,0 +1,17 @@
+<!--
+ - Created by robar on 25.11.2022.
+ -->
+
+<!-- Popular Actors -->
+<template>
+    <div class="c-container">
+        <lightning-card>
+            <h1 slot="title">Popular Actors</h1>
+            <div class=slds-scrollable style="display: flex; flex-wrap: nowrap;">
+                <div class="slds-col slds-size_1-of-5 item" for:each={actorList} for:item="actor" key={actor.id}>
+                    <c-actor-tile actor={actor}></c-actor-tile>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>

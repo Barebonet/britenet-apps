@@ -13,7 +13,7 @@ global with sharing class HA_SoapService {
             ];
             docWrap = mapToWrapper(doctor);
         } catch (Exception e) {
-            System.debug(e);
+            throw e;
         }
         return docWrap;
     }

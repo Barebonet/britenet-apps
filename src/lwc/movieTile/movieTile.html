@@ -6,7 +6,9 @@
 <template>
     <div class=specialItem>
         <div onclick={toggleMovieDetails}>
-            <img src={movie.poster_path} alt="Poster Movie" class="item" style="height: 450px; max-height: 450px; width: 100%; object-fit: cover"/>
+            <img if:true={movie.poster_path} src={movie.poster_path} alt="Poster Movie" class="item" style="height: 450px; max-height: 450px; width: 100%; object-fit: cover"/>
+            <img if:false={movie.poster_path} src={movieAttachmentLink}
+                 alt="Poster Movie" class="item" style="height: 450px; max-height: 450px; width: 100%; object-fit: cover"/>
             <div onclick={toggleMovieDetails} class="hidden">
                 <div class="slds-text-heading_medium slds-text-align_center">
                     <p class="slds-truncate">{movie.title}</p></div>

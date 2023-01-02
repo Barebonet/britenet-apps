@@ -10,11 +10,12 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>FilmApp</label>
     <navType>Standard</navType>
     <tabs>Home_Page</tabs>
     <tabs>Search</tabs>
+    <tabs>Favorite_Movies</tabs>
+    <tabs>Blacklisted_Movies</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>FilmApp_UtilityBar</utilityBar>
 </CustomApplication>

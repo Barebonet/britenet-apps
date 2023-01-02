@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>trendingMovies</componentName>
-                <identifier>c_trendingMovies</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>popularActors</componentName>
-                <identifier>c_popularActors</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>popularMovies</componentName>
-                <identifier>c_popularMovies</identifier>
-            </componentInstance>
-        </itemInstances>
+        <componentInstances>
+            <componentName>trendingMovies</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentName>popularActors</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentName>popularMovies</componentName>
+        </componentInstances>
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>

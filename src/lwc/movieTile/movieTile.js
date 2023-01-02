@@ -16,6 +16,7 @@ export default class MovieTile extends LightningElement {
     messageContext;
     @track refreshValue;
     @track avgRating;
+    movieAttachmentLink;
 
     toggleMovieDetails() {
         this.movieDetailsVisible = !this.movieDetailsVisible;
@@ -56,5 +57,10 @@ export default class MovieTile extends LightningElement {
     connectedCallback() {
         this.subscribeToMessageChannel();
         this.getAvgRating();
+        // if(this.movie.poster_path === null || this.movie.poster_path === '') {
+        //     this.movieAttachmentLink = 'https://c.na15.content.force.com/sfc/servlet.shepherd/version/download/'+ this.movie.attachment.Id + '?asPdf=false&operationContext=CHATTER';
+        //     console.log(this.movieAttachmentLink);
+        //     console.log('Jestem w ifie')
+        // }
     }
 }

@@ -29,6 +29,7 @@ public with sharing class FA_ClassesForCallouts {
         @AuraEnabled public Integer vote_count;
         @AuraEnabled public Boolean video;
         @AuraEnabled public Double vote_average;
+        @AuraEnabled public Attachment attachment;
     }
 
     public class ActorMovies {

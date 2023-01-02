@@ -84,7 +84,7 @@ public with sharing class HA_DoctorDetailsController {
                         response.getBody(), List<GeoLocation>.class
                 );
             } catch (Exception e) {
-                System.debug('Error: ' + e);
+                throw e;
             }
 
             if (geoLocations != null && geoLocations.size() > 0) {

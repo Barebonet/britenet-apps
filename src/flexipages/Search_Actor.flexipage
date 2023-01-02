@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>searchActor</componentName>
-                <identifier>c_searchActor</identifier>
-            </componentInstance>
-        </itemInstances>
+        <componentInstances>
+            <componentName>searchActor</componentName>
+        </componentInstances>
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>

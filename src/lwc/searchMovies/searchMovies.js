@@ -6,12 +6,12 @@ import getPopularActors from '@salesforce/apex/FA_CalloutService.getPopularActor
 import insertMovie from '@salesforce/apex/FA_SoqlService.addMovie';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import hideHeader from '@salesforce/resourceUrl/HideSalesforceHeader';
-import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
+import { loadStyle } from 'lightning/platformResourceLoader';
 
 export default class SearchMovies extends LightningElement {
     name = '';
-    @track pageActorsNum;
-    @track pageMoviesNum;
+    @track pageActorsNum = 1;
+    @track pageMoviesNum = 1;
     totalMoviePages;
     totalActorPages;
     @track displayMovies = true;
@@ -21,19 +21,19 @@ export default class SearchMovies extends LightningElement {
     @track displayPaginateActors = false;
     @track movieList;
     @track actorList;
-    @track movieName;
-    @track originalTitle;
-    @track originalLanguage;
-    @track overview;
-    @track posterPath;
-    @track releaseDate;
+    movieName;
+    originalTitle;
+    originalLanguage;
+    overview;
+    posterPath;
+    releaseDate;
+    fileName;
 
-    get acceptedFormats() {
-        return ['.jpg','.png'];
-    }
-
-    handleUploadFinished() {
-
+    handleChangeFinished() {
+        let file = input.files[0];
+        let reader = new FileReader();
+        reader.addEventListener('load',this.fileName);
+        reader.readAsText(file);
     }
 
     toggleMovies() {
@@ -71,14 +71,50 @@ export default class SearchMovies extends LightningElement {
             originalLanguage: this.originalLanguage,
             overview: this.overview,
             posterPath: this.posterPath,
-            releaseDate: this.releaseDate
+            releaseDate: this.releaseDate,
+            fileName: this.fileName,
+            blobFile: this.handleChangeFinished
         }).then(result => {
             this.newMovieModal = false;
+            this.movieName = '';
+            this.originalLanguage = '';
+            this.originalTitle = '';
+            this.overview = '';
+            this.releaseDate = '';
+            this.fileName = '';
+        }).catch(error => {
+            console.log(JSON.stringify(error));
         })
     }
 
     searchMovie(event) {
         this.name = event.target.value;
+    }
+
+    addMovieName(event) {
+        this.movieName = event.target.value;
+    }
+
+    addFileName(event) {
+        let file = event.target.value;
+        let lastIndexOf = file.lastIndexOf("\\");
+        this.fileName = file.substring(lastIndexOf + 1);
+    }
+
+    addMovieOriginalTitle(event) {
+        this.originalTitle = event.target.value;
+    }
+
+    addMovieOriginalLanguage(event) {
+        this.originalLanguage = event.target.value;
+    }
+
+    addMovieOverview(event) {
+        this.overview = event.target.value;
+    }
+
+    addMovieReleaseDate(event) {
+        this.releaseDate = event.target.value;
     }
 
     search() {
@@ -110,13 +146,6 @@ export default class SearchMovies extends LightningElement {
                 this.totalActorPages = result.total_pages;
                 this.pageActorsNum = result.page;
                 this.displayPaginateActors = this.actorList.length !== 0;
-            }).catch(error => {
-                const event = new ShowToastEvent({
-                    title: 'Error',
-                    variant: 'error',
-                    message: error.body.message
-                });
-                this.dispatchEvent(event);
             })
         } else {
             const event = new ShowToastEvent({
@@ -147,39 +176,41 @@ export default class SearchMovies extends LightningElement {
     }
 
     firstActors() {
-        this.pageActorsNum = 1;
-        searchActors({
-            actorName: this.name,
-            pageActorsNumber: this.pageActorsNum
-        }).then(result => {
-            this.actorList = result.results;
-            this.totalActorPages = result.total_pages;
-        }).catch(error => {
+        if(this.pageActorsNum === 1) {
             const event = new ShowToastEvent({
-                title: 'Error',
                 variant: 'error',
-                message: error.body.message
+                message: 'This is the first page!',
             });
             this.dispatchEvent(event);
-        })
+        } else {
+            this.pageActorsNum = 1;
+            searchActors({
+                actorName: this.name,
+                pageActorsNumber: this.pageActorsNum
+            }).then(result => {
+                this.actorList = result.results;
+                this.totalActorPages = result.total_pages;
+            })
+        }
     }
 
     firstMovies() {
-        this.pageMoviesNum = 1;
-        searchMovies({
-            movieName: this.name,
-            pageMoviesNUmber: this.pageMovieNum
-        }).then(result => {
-            this.movieList = result.results;
-            this.totalMoviePages = result.total_pages;
-        }).catch(error => {
+        if(this.pageMoviesNum === 1) {
             const event = new ShowToastEvent({
-                title: 'Error',
                 variant: 'error',
-                message: error.body.message
+                message: 'This is the first page!',
             });
             this.dispatchEvent(event);
-        })
+        } else {
+            this.pageMoviesNum = 1;
+            searchMovies({
+                movieName: this.name,
+                pageMoviesNUmber: this.pageMovieNum
+            }).then(result => {
+                this.movieList = result.results;
+                this.totalMoviePages = result.total_pages;
+            })
+        }
     }
 
     previousActors() {
@@ -191,19 +222,12 @@ export default class SearchMovies extends LightningElement {
             }).then(result => {
                 this.actorList = result.results;
                 this.totalActorPages = result.total_pages;
-            }).catch(error => {
-                const event = new ShowToastEvent({
-                    title: 'Error',
-                    variant: 'error',
-                    message: error.body.message
-                });
-                this.dispatchEvent(event);
             })
         } else {
             this.pageActorsNum = 1;
             const event = new ShowToastEvent({
                 variant: 'error',
-                message: 'This is the first page! Can\'t go further',
+                message: 'This is the first page!',
             });
             this.dispatchEvent(event);
         }
@@ -218,19 +242,12 @@ export default class SearchMovies extends LightningElement {
             }).then(result => {
                 this.movieList = result.results;
                 this.totalMoviePages = result.total_pages;
-            }).catch(error => {
-                const event = new ShowToastEvent({
-                    title: 'Error',
-                    variant: 'error',
-                    message: error.body.message
-                });
-                this.dispatchEvent(event);
             })
         } else {
             this.pageMoviesNum = 1;
             const event = new ShowToastEvent({
                 variant: 'error',
-                message: 'This is the first page! Can\'t go further',
+                message: 'This is the first page!',
             });
             this.dispatchEvent(event);
         }
@@ -245,19 +262,12 @@ export default class SearchMovies extends LightningElement {
             }).then(result => {
                 this.actorList = result.results;
                 this.totalActorPages = result.total_pages;
-            }).catch(error => {
-                const event = new ShowToastEvent({
-                    title: 'Error',
-                    variant: 'error',
-                    message: error.body.message
-                });
-                this.dispatchEvent(event);
             })
         } else {
             this.pageActorsNum = this.totalActorPages;
             const event = new ShowToastEvent({
                 variant: 'error',
-                message: 'This is the last page! Can\'t go further',
+                message: 'This is the last page!',
             });
             this.dispatchEvent(event);
         }
@@ -272,57 +282,52 @@ export default class SearchMovies extends LightningElement {
             }).then(result => {
                 this.movieList = result.results;
                 this.totalMoviePages = result.total_pages;
-            }).catch(error => {
-                const event = new ShowToastEvent({
-                    title: 'Error',
-                    variant: 'error',
-                    message: error.body.message
-                });
-                this.dispatchEvent(event);
             })
         } else {
             this.pageMoviesNum = this.totalMoviePages;
             const event = new ShowToastEvent({
                 variant: 'error',
-                message: 'This is the last page! Can\'t go further',
+                message: 'This is the last page!',
             });
             this.dispatchEvent(event);
         }
     }
 
     lastActors() {
-        this.pageActorsNum = this.totalActorPages;
-        searchActors({
-            actorName: this.name,
-            pageActorsNumber: this.pageActorsNum
-        }).then(result => {
-            this.actorList = result.results;
-            this.totalActorPages = result.total_pages;
-        }).catch(error => {
+        if(this.pageActorsNum === this.totalActorPages) {
             const event = new ShowToastEvent({
-                title: 'Error',
                 variant: 'error',
-                message: error.body.message
+                message: 'This is the last page!',
             });
             this.dispatchEvent(event);
-        })
+        } else {
+            this.pageActorsNum = this.totalActorPages;
+            searchActors({
+                actorName: this.name,
+                pageActorsNumber: this.pageActorsNum
+            }).then(result => {
+                this.actorList = result.results;
+                this.totalActorPages = result.total_pages;
+            })
+        }
     }
 
     lastMovies() {
-        this.pageMoviesNum = this.totalMoviePages;
-        searchMovies({
-            movieName: this.name,
-            pageMoviesNumber: this.pageMoviesNum
-        }).then(result => {
-            this.movieList = result.results;
-            this.totalMoviePages = result.total_pages;
-        }).catch(error => {
+        if(this.pageMoviesNum === this.totalMoviePages) {
             const event = new ShowToastEvent({
-                title: 'Error',
                 variant: 'error',
-                message: error.body.message
+                message: 'This is the last page!',
             });
             this.dispatchEvent(event);
-        })
+        } else {
+            this.pageMoviesNum = this.totalMoviePages;
+            searchMovies({
+                movieName: this.name,
+                pageMoviesNumber: this.pageMoviesNum
+            }).then(result => {
+                this.movieList = result.results;
+                this.totalMoviePages = result.total_pages;
+            })
+        }
     }
 }

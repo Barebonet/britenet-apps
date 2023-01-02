@@ -96,39 +96,71 @@
                 <lightning-modal-body>
                     <div style="height:370px">
                         <div style="display: flex; flex-wrap: wrap">
+                            <div class="slds-form-element slds-align_absolute-center" style="width: 100%">
+                                <span class="slds-form-element__label"
+                                      id="file-selector-primary-label-105">Movie cover</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-file-selector slds-file-selector_files">
+                                        <div class="slds-file-selector__dropzone">
+                                            <input type="file" class="slds-file-selector__input slds-assistive-text"
+                                                   name={fileName}
+                                                   accept="image/png, image/jpeg" id="file-upload"
+                                                   onchange={addFileName}
+                                                   aria-labelledby="file-selector-primary-label-105 file-selector-secondary-label106"/>
+                                            <label class="slds-file-selector__body" for="file-upload"
+                                                   id="file-selector-secondary-label106">
+                                                <span class="slds-file-selector__button slds-button slds-button_neutral">
+                                                    <svg class="slds-button__icon slds-button__icon_left"
+                                                         aria-hidden="true">
+                                                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"></use>
+                                                    </svg>Upload File</span>
+                                                <span class="slds-file-selector__text slds-medium-show">
+                                                    <p if:false={fileName}> or Drop Files</p>
+                                                    <p if:true={fileName}> {fileName}</p>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <lightning-input type="text"
                                              required="true"
                                              value={movieName}
                                              label="Movie Title"
+                                             onchange={addMovieName}
                                              class="slds-size_2-of-3 slds-align_absolute-center singleInput"
                             ></lightning-input>
                             <lightning-input type="text"
                                              value={originalTitle}
                                              label="Original Title"
+                                             onchange={addMovieOriginalTitle}
                                              class="slds-size_2-of-3 slds-align_absolute-center singleInput"
                             ></lightning-input>
                             <lightning-input type="text"
                                              value={originalLanguage}
                                              label="Original Language"
+                                             onchange={addMovieOriginalLanguage}
                                              class="slds-size_2-of-3 slds-align_absolute-center singleInput"
                             ></lightning-input>
                             <lightning-input type="text"
                                              required="true"
                                              value={overview}
                                              label="Movie Overview"
+                                             onchange={addMovieOverview}
                                              class="slds-size_2-of-3 slds-align_absolute-center singleInput"
                             ></lightning-input>
                             <lightning-input type="text"
                                              value={releaseDate}
                                              label="Date of release"
+                                             onchange={addMovieReleaseDate}
                                              class="slds-size_2-of-3 slds-align_absolute-center singleInput"
                             ></lightning-input>
-                            <lightning-input type="text"
-                                             required="true"
-                                             value={posterPath}
-                                             label="URL link to movie cover"
-                                             class="slds-size_2-of-3 slds-align_absolute-center"
-                            ></lightning-input>
+                            <!--                            <lightning-input type="text"-->
+                            <!--                                             required="true"-->
+                            <!--                                             value={posterPath}-->
+                            <!--                                             label="URL link to movie cover"-->
+                            <!--                                             class="slds-size_2-of-3 slds-align_absolute-center"-->
+                            <!--                            ></lightning-input>-->
                         </div>
                     </div>
                 </lightning-modal-body>

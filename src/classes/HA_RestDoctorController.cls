@@ -97,7 +97,6 @@ public with sharing class HA_RestDoctorController {
         try {
             response = http.send(request);
             responseBody = response.getBody();
-            System.debug(responseBody);
             if(response.getStatusCode() == 200) {
                 success = 'true';
             } else {

@@ -9,6 +9,22 @@
         <value>Favourites</value>
     </caseValues>
     <fields>
+        <label><!-- Movie Id --></label>
+        <name>MovieId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original Title --></label>
+        <name>OriginalTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overview --></label>
+        <name>Overview__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release Date --></label>
+        <name>ReleaseDate__c</name>
+    </fields>
+    <fields>
         <label><!-- poster_path --></label>
         <name>poster_path__c</name>
     </fields>

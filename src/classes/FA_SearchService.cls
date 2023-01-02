@@ -14,8 +14,12 @@ public with sharing class FA_SearchService {
     @AuraEnabled
     public static FA_ClassesForCallouts.MovieResponse searchMovies(String movieName, Integer pageMoviesNumber) {
         FA_ClassesForCallouts.MovieResponse calloutMovies = FA_CalloutService.searchMovies(movieName, pageMoviesNumber);
-        List<FA_ClassesForCallouts.Movie> soqlMovies = FA_SoqlService.getMovies(movieName);
-        calloutMovies.results.addAll(soqlMovies);
+//        if(calloutMovies.results.size() < 20) {
+//            List<FA_ClassesForCallouts.Movie> soqlMovies = FA_SoqlService.getMovies(movieName);
+//            for(Integer i=calloutMovies.results.size(); i<=20; i++) {
+//                calloutMovies.results.add(soqlMovies.get(i));
+//            }
+//        }
         return calloutMovies;
     }
 

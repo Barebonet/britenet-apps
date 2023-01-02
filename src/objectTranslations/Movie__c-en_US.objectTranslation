@@ -13,8 +13,32 @@
         <name>Adult__c</name>
     </fields>
     <fields>
-        <label><!-- Backdrop Path --></label>
-        <name>BackdropPath__c</name>
+        <label><!-- Approval Status --></label>
+        <name>ApprovalStatus__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recalled</masterLabel>
+            <translation><!-- Recalled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted</masterLabel>
+            <translation><!-- Submitted --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Movie Id --></label>
+        <name>MovieId__c</name>
     </fields>
     <fields>
         <label><!-- Original Language --></label>
@@ -29,32 +53,12 @@
         <name>Overview__c</name>
     </fields>
     <fields>
-        <label><!-- Popularity --></label>
-        <name>Popularity__c</name>
-    </fields>
-    <fields>
         <label><!-- Poster Path --></label>
         <name>PosterPath__c</name>
     </fields>
     <fields>
         <label><!-- Release Date --></label>
         <name>ReleaseDate__c</name>
-    </fields>
-    <fields>
-        <label><!-- Title --></label>
-        <name>Title__c</name>
-    </fields>
-    <fields>
-        <label><!-- Video --></label>
-        <name>Video__c</name>
-    </fields>
-    <fields>
-        <label><!-- Vote Average --></label>
-        <name>VoteAverage__c</name>
-    </fields>
-    <fields>
-        <label><!-- Vote Count --></label>
-        <name>VoteCount__c</name>
     </fields>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>
