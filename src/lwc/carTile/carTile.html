@@ -1,0 +1,12 @@
+<template>
+    <div style="display: flex; background-color: azure; border-radius: 25px; margin-top: 20px; box-shadow: 5px 5px 5px 5px grey;">
+        <div if:true={carPhoto} style="width: 250px">
+            <img src={carPhoto} style="padding: 30px;"/>
+        </div>
+        <div style="margin-left: 15px;">
+            <div style="margin-top: 30px; font-weight: bold; font-size: x-large">{car.Name}</div>
+            <div style="margin-top: 2%; font-size: medium">Capacity: {car.Capacity__c} cm³</div>
+            <div style="font-size: medium">Powa: {car.Power__c} hp</div>
+        </div>
+    </div>
+</template>
