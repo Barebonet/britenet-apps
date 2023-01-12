@@ -1,0 +1,10 @@
+.searchButton {
+    background-color: rgb(8, 135, 86);
+    color: white;
+    border-color: rgba(240, 240, 240, 0);
+    box-shadow: 0 0 1px 0px rgba(240, 240, 240, 0) inset, 0 0 1px 0px rgba(240, 240, 240, 0); 
+    border-radius: 14px
+}
+.searchButton:hover {
+    background-color: rgb(6, 97, 62);
+}
