@@ -1,0 +1,8 @@
+<template>
+    <div>
+        <c-add-car-rating car-id={carId} oncommentadded={handleCommentAdded}></c-add-car-rating>
+    </div>
+    <div for:each={commentsList} for:item="comment" key={comment.Id}>
+        <c-car-comment-tile comment={comment} key={comment.Id}></c-car-comment-tile>
+    </div>
+</template>
