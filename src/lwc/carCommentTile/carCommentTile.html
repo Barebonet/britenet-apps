@@ -1,0 +1,24 @@
+<template>
+    <div style="margin-top: 2rem;">
+        <div class="commentWrapper">
+            <div style="display: flex; width: 100%; margin-bottom: 20px">
+                <div style="display: flex; flex-wrap: wrap; width: 95%">
+                    <div style="padding-left: 30px; width: 20%">
+                        <p style="color: gray; padding-top: 15px; font-size: 16px">
+                            {comment.CreatedBy.Name}
+                        </p>
+                    </div>
+                    <div style="width:40%">
+                        <c-star-ratings rating={comment.Rating__c} read-only-star="true"
+                                        show-half-stars="true"
+                                        size="small"></c-star-ratings>
+                    </div>
+                    <div style="width: 100%">
+                        <p style="font-size: 15px; padding-left: 30px; margin-bottom: 15px"><br>
+                            {comment.Description__c}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

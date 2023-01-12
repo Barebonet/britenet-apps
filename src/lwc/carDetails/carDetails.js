@@ -1,11 +1,25 @@
 import { LightningElement, track } from 'lwc';
 import getCarDetails from '@salesforce/apex/ProductController.getProductDetails';
-import getCarPhotos from '@salesforce/apex/CR_GalleryController.getPhotosForProduct';
+import Capacity from '@salesforce/label/c.Capacity';
+import Power from '@salesforce/label/c.Power';
+import hp from '@salesforce/label/c.Hp';
+import cm from '@salesforce/label/c.cm';
+import ProductionYear from '@salesforce/label/c.ProductionYear';
+import Description from '@salesforce/label/c.Description';
 
 export default class CarDetails extends LightningElement {
     carId;
     @track
     car = {};
+
+    label = {
+        Capacity,
+        Power,
+        hp,
+        cm,
+        ProductionYear,
+        Description
+    }
 
     connectedCallback() {
         this.getProductIdFromURL();

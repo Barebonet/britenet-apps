@@ -5,8 +5,11 @@
         </div>
         <div style="margin-left: 15px;">
             <div style="margin-top: 30px; font-weight: bold; font-size: x-large">{car.Name}</div>
-            <div style="margin-top: 2%; font-size: medium">Capacity: {car.Capacity__c} cm³</div>
-            <div style="font-size: medium">Powa: {car.Power__c} hp</div>
+            <div style="margin-top: 2%; font-size: medium">{label.Capacity} {car.Capacity__c} {label.cm}</div>
+            <div style="font-size: medium">{label.Power} {car.Power__c} {label.hp}</div>
+            <div style="font-size: medium">
+                {label.Rating} {avgRating} <span class="fa fa-star checked"></span>
+            </div>
         </div>
     </div>
 </template>

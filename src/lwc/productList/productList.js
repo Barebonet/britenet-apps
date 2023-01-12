@@ -1,8 +1,13 @@
 import { api, LightningElement } from 'lwc';
+import Cars from '@salesforce/label/c.Cars';
 
 export default class ProductList extends LightningElement {
     @api
     carList;
+
+    label = {
+        Cars
+    }
 
     handleOpenCarDetails(event) {
         let recordId=event.currentTarget.id;
