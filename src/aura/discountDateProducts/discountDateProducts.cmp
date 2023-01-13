@@ -1,0 +1,39 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="ProductController">
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+    <aura:attribute name="productList" type="List" default="[]"/>
+    <aura:attribute name="defaultOptions" type="List" default="[]"/>
+    <aura:attribute name="discountPercent" type="Integer" default="10"/>
+    <lightning:card>
+        <div style="display: flex;">
+            <div style="padding-left: 25px; width:50%">
+                <h2 class="slds-align_absolute-center" style="font-size: 16px; font-weight: bold">Input start date of discount</h2>
+                <div class="slds-align_absolute-center">
+                    <lightning:input type="datetime" name="startDate" value="{!v.startDate}"/>
+                </div>
+            </div>
+            <div style="padding-left: 25px; width: 50%">
+                <h2 class="slds-align_absolute-center" style="font-size: 16px; font-weight: bold">Input end date of discount</h2>
+                <div class="slds-align_absolute-center">
+                    <lightning:input type="datetime" name="endDate" value="{!v.endDate}" class="slds-align_absolute-center"/>
+                </div>
+            </div>
+        </div>
+    </lightning:card>
+    <lightning:card>
+        <h2 class="slds-align_absolute-center" style="font-size: 16px; font-weight: bold">Select Products</h2>
+        <lightning:dualListbox aura:id="selectProducts"
+                            name="selectCarsForDiscount"
+                            sourceLabel="Available Products"
+                            selectedLabel="Selected Products"
+                            options="{!v.productList}"
+                            value="{!v.defaultOptions}"
+                            onchange="{!c.handleChangeProductList}"
+                            style="padding-left: 25px; padding-right: 25px"/>
+        <div style="padding-left: 25px; padding-right: 25px; margin-top: 30px">
+            <lightning:slider label="Discount percent (%)" value="{!v.discountPercent}"/>
+        </div>
+        <lightning:button variant="brand" label="Add Discount" class="slds-align_absolute-center"/>
+    </lightning:card>
+</aura:component>
