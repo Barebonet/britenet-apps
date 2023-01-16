@@ -9,6 +9,7 @@
     border-radius: 14px;
     transition: background-color .2s;
 }
+
 .rentButton:hover {
     background-color: rgb(134, 7, 7);
 }

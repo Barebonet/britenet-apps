@@ -1,7 +1,80 @@
 <template>
-    <div style="font-weight: bold; font-size: x-large; margin-top: 7%">{car.Name}</div><br>
-    <div>{label.Capacity} {car.Capacity__c} {label.cm}</div>
-    <div>{label.Power} {car.Power__c} {label.hp}</div>
-    <div>{label.ProductionYear} {car.ProductionYear__c}</div>
-    <div>{label.Description} <br>{car.Description}</div>
+    <div style="width: 90%; padding-left: 15px">
+        <div style="display: flex; font-weight: bold; font-size: x-large; margin-top: 7%">
+            <div style="width: 80%">{car.Name}</div>
+            <div style="width: 20%;">{label.Euro} {carPrice} {label.PerDay}</div>
+        </div><br>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" style="font-size: medium; margin-top: 3%">
+            <tbody>
+                <tr>
+                    <td>
+                        {label.Capacity}
+                    </td>
+                    <td>
+                        {car.Capacity__c} {label.cm}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label.Power}
+                    </td>
+                    <td>
+                        {car.Power__c} {label.hp}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label.ProductionYear}
+                    </td>
+                    <td>
+                        {car.ProductionYear__c}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div style="margin-top: 10px; font-size: medium">{label.Description}</div>
+        <div style="font-size: medium">{car.Description}</div>
+        <div if:false={isGuest} style="margin-top: 4%;">
+            <button class="slds-button slds-button_neutral rentButton" 
+                                style="margin-left: 43%;" onclick={toggleCarModal}>{label.RentNow}</button>
+        </div>
+    </div>
+    <template if:true={cartModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Select the rent period"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div style="height: 420px;">
+                        <div style="display: flex;">
+                            <div style="width:50%">
+                                <div class="slds-align_absolute-center">
+                                    <lightning-input type="date" name="StartDate" required="true" label={label.StartDate} onchange={handleStartDateChange}></lightning-input>
+                                </div>
+                            </div>
+                            <div style="width:50%">
+                                <div class="slds-align_absolute-center">
+                                    <lightning-input type="date" name="EndDate" required="true" label={label.EndDate} onchange={handleEndDateChange}></lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; margin-top: 5%">
+                            <div class=" slds-align_absolute-center" style="font-size: 17px; font-weight: bold;">
+                                Total price: {label.Euro} {totalPrice}
+                            </div>
+                            <button class="slds-button slds-button_neutral rentButton slds-align_absolute-center rentButton" onclick={calculatePrice}>Check price</button>
+                        </div>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div style="display: flex">
+                        <button class="slds-button slds-button_neutral rentButton slds-align_absolute-center rentButton" onclick={toggleCarModal}>{label.Close}</button>
+                        <button class="slds-button slds-button_neutral rentButton slds-align_absolute-center rentButton" onclick={addToCart}>{label.AddToCart}</button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
 </template>
