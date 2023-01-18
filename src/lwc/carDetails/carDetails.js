@@ -1,4 +1,5 @@
 import { LightningElement, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCarDetails from '@salesforce/apex/ProductController.getProductDetails';
 import getCarPrice from '@salesforce/apex/ProductController.getPriceForProduct';
 import Capacity from '@salesforce/label/c.Capacity';
@@ -97,10 +98,12 @@ export default class CarDetails extends LightningElement {
 
     handleStartDateChange(event) {
         this.startDate = new Date(event.target.value);
+        this.calculatePrice();
     }
 
     handleEndDateChange(event) {
         this.endDate = new Date(event.target.value);
+        this.calculatePrice();
     }
 
     calculatePrice() {

@@ -1,26 +1,29 @@
 import { api, LightningElement, track } from 'lwc';
 import getMainPhoto from '@salesforce/apex/CR_GalleryController.getPhotoForTile';
 import getAverageRating from '@salesforce/apex/CR_RatingController.getAverageRating';
+import getCarPrice from '@salesforce/apex/ProductController.getPriceForProduct';
 import Capacity from '@salesforce/label/c.Capacity';
 import Power from '@salesforce/label/c.Power';
 import hp from '@salesforce/label/c.Hp';
 import cm from '@salesforce/label/c.cm';
 import Rating from '@salesforce/label/c.Rating';
+import Euro from '@salesforce/label/c.Euro';
+import PerDay from '@salesforce/label/c.PerDay';
 
 export default class CarTile extends LightningElement {
-    @api
-    car;
-    @track
-    carPhoto;
-    @track
-    avgRating = 0;
+    @api car;
+    @track carPhoto;
+    @track avgRating = 0;
+    @track carPrice = 0;
 
     label = {
         Capacity,
         Power,
         hp,
         cm,
-        Rating
+        Rating,
+        Euro,
+        PerDay
     }
 
     connectedCallback() {
@@ -41,5 +44,10 @@ export default class CarTile extends LightningElement {
         }).catch(err => {
             console.log(err);
         });
+        getCarPrice({
+            carId: this.car.Id
+        }).then(result => {
+            this.carPrice = result
+        })
     }
 }

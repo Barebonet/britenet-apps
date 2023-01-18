@@ -1,3 +1,24 @@
 <template>
-    
+    <h1 style="font-weight: bolder; font-size: xx-large; margin-top: 4%">Cart</h1>
+    <div if:true={displayItems}>
+        <div style="display: flex;">
+            <div for:each={cartItems} for:item="cartItem" key={cartItem.Id} style="width: 70%;">
+                <c-cart-item-tile cart-item={cartItem} ondeleted={refreshCart}></c-cart-item-tile>
+            </div>
+            <div class="bordered" style="width: 30%;">
+                <div style="display: flex; margin-top: 20%; font-weight: bold; font-size: 20px">
+                    <div style="width: 70%; padding-left: 10%;">Total price:</div>
+                    <div style="width: 30%; padding-right: 10%;">{label.Euro} {fullPrice}</div>
+                </div>
+                <div>
+                    <center>
+                        <button class="deleteButton" style="margin-top: 5%; font-size: 18px" onclick={orderProducts}>Checkout</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div if:false={displayItems}>
+        <center>Your cart is empty. You should pick a car first.</center>
+    </div>
 </template>

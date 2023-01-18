@@ -12,16 +12,13 @@ public with sharing class CartController {
                 newCart.UserId__c = userId;
                 insert newCart;  
             }
-            userCart = [SELECT 
-                            Id 
-                            FROM Cart__c 
-                            WHERE UserId__c = :userId LIMIT 1];
             CartItem__c cartItem = new CartItem__c();
             cartItem.CartId__c = userCart[0].Id;
             cartItem.ProductId__c = productId;
             cartItem.StartDate__c = startDate;
             cartItem.EndDate__c = endDate;
             cartItem.Totalprice__c = totalPrice;
+            insert cartItem;
             return 'SUCCESS';
         } catch (Exception e) {
             return 'FAILURE';
@@ -37,5 +34,14 @@ public with sharing class CartController {
             throw new AuraHandledException(e.getMessage());
         }
         return cartItems;
+    }
+
+    @AuraEnabled
+    public static void deleteFromCart(String cartItemId) {
+        try {
+            Database.delete(cartItemId);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 }

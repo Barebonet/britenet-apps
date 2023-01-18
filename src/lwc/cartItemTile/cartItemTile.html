@@ -1,0 +1,15 @@
+<template>
+    <div style="display: flex">
+        <div style="width: 60%;">
+            <c-cart-car-tile car-id={cartItem.ProductId__c}></c-cart-car-tile>
+        </div>
+        <div style="width: 30%; margin-top: 10%;">
+            <div>Start of rent: {cartItem.StartDate__c}</div>
+            <div>End of rent: {cartItem.EndDate__c}</div>
+            <div>Total price of rent: {label.Euro} {cartItem.Totalprice__c}</div>
+        </div>
+        <div style="width: 10%; margin-top: 12%;">
+            <button class="button" onclick={deleteFromCart}>Delete</button>
+        </div>
+    </div>
+</template>
