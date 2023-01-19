@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; background-color: rgb(253, 242, 242); border-radius: 25px; margin-top: 20px; box-shadow: 5px 5px 5px 5px grey;">
+    <div class="carTile" style="display: flex; background-color: rgb(253, 242, 242); border-radius: 25px; margin-top: 20px; box-shadow: 5px 5px 5px 5px grey;">
         <div if:true={carPhoto} style="width: 30%">
             <img src={carPhoto} style="padding: 30px;"/>
         </div>
@@ -11,7 +11,7 @@
             <div style="margin-top: 2%; font-size: medium">{label.Capacity} {car.Capacity__c} {label.cm}</div>
             <div style="font-size: medium">{label.Power} {car.Power__c} {label.hp}</div>
             <div style="font-size: medium">
-                {label.Rating} {avgRating} <span class="fa fa-star checked"></span>
+                {label.Rating} {avgRating} &#9733;
             </div>
         </div>
     </div>

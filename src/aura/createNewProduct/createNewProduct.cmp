@@ -1,0 +1,46 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="ProductController">
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="capacity" type="Integer"/>
+    <aura:attribute name="power" type="Integer"/>
+    <aura:attribute name="torque" type="Integer"/>
+    <aura:attribute name="family" type="String"/>
+    <aura:attribute name="description" type="String"/>
+    <aura:attribute name="price" type="Double"/>
+    <aura:attribute name="fileName" type="String" default="No File Selected."/>
+    <aura:attribute name="FilesUploaded" type="List"/>
+    <lightning:card title="Product information">
+        <div style="width: 80%; margin-left: 10%">
+            <lightning:input type="text" label="Produt name" name="Product Name" value="{!v.productName}" required="true"/>
+            <lightning:input type="text" label="Capacity" name="Capacity" value="{!v.capacity}" required="true"/>
+            <lightning:input type="text" label="Power" name="Power" value="{!v.power}" required="true"/>
+            <lightning:input type="text" label="Torque" name="Torque" value="{!v.torque}" required="true"/>
+            <lightning:select label="Car family" name="Car Family" value="{!v.family}">
+                <option value="Cars">Cars</option>
+                <option value="Trucks">Trucks</option>
+                <option value="Vans">Vans</option>
+            </lightning:select>
+            <lightning:textarea type="text" label="Product description" name="ProductDescription" value="{!v.description}" required="true"/>
+        </div>
+    </lightning:card>
+
+    <div style="display: flex; margin-top: 10px">
+        <div style="margin-right: 5px; width: 50%">
+            <lightning:card title="Product photos">
+                <div class="slds-align_absolute-center">
+                    <div>
+                        <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" 
+                                        label="Input car photos" multiple="true" required="true"/>
+                        <div class="slds-text-body_medium slds-text-color_error">{!v.fileName}</div>
+                    </div>
+                </div>
+            </lightning:card>
+        </div>
+        <div style="margin-left: 5px; width: 50%">
+            <lightning:card title="Set standard price">
+                <div style="width: 80%; margin-left: 10%">
+                    <lightning:input type="text" label="Price (€)" name="StandardPrice" value="{!v.price}" required="true" accept="image/png, image/jpeg"/>
+                </div>
+            </lightning:card>
+        </div>
+    </div>
+</aura:component>

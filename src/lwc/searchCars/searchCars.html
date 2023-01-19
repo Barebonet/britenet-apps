@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex">
-        <div style="width: 30%; padding-right: 10px">
+        <div style="width: 30%; padding-right: 20px">
             <h1 style="font-weight: bolder; font-size: xx-large">{label.searchCars}</h1>
             <lightning-input type="text" label={label.CarName} value={carName} 
                             onchange={handleNameChange} style="margin-top: 3%;"></lightning-input>
@@ -26,7 +26,7 @@
                                 onclick={searchCars} style="margin-left: 41%;">{label.Search}</button>
             </div>
         </div>
-        <div style="width: 70%; padding-left: 10px">
+        <div style="width: 70%; padding-left: 20px">
             <c-product-list car-list={carList}></c-product-list>
         </div>
     </div>
