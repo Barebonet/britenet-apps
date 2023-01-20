@@ -8,15 +8,15 @@ import MaximumPower from '@salesforce/label/c.MaximumPower';
 import MinimumCapacity from '@salesforce/label/c.MinimumCapacity';
 import MaximumCapacity from '@salesforce/label/c.MaximumCapacity';
 import Search from '@salesforce/label/c.Search';
+import ProductFamily from '@salesforce/label/c.ProductFamily';
 
 export default class SearchCars extends LightningElement {
     carName = '';
-    @track
     minPower = 0;
-    @track
     maxPower = 0;
     minCapacity = 0;
     maxCapacity = 0;
+    productFam = '';
     @track
     carList = [];
 
@@ -27,7 +27,8 @@ export default class SearchCars extends LightningElement {
         MaximumPower,
         MinimumCapacity,
         MaximumCapacity,
-        Search
+        Search,
+        ProductFamily
     }
 
     get power() {
@@ -66,13 +67,27 @@ export default class SearchCars extends LightningElement {
         this.maxCapacity = Number(event.detail.value);
     }
 
+    get getProductFamily() {
+        return [
+            { label: 'None', value: 'None' },
+            { label: 'Cars', value: 'Cars' },
+            { label: 'Trucks', value: 'Trucks'},
+            { label: 'Vans', value: 'Vans' }
+        ]
+    }
+
+    handleProductFamilyChange(event) {
+        this.productFam = event.detail.value;
+    }
+
     connectedCallback() {
         getProducts({
             carName: '',
             minPower: this.minPower,
             maxPower: this.maxPower,
             minCapacity: this.minCapacity,
-            maxCapacity: this.maxCapacity
+            maxCapacity: this.maxCapacity,
+            productFamily: this.productFam
         }).then(result => {
             this.carList = result
         })
@@ -103,9 +118,12 @@ export default class SearchCars extends LightningElement {
                 minPower: this.minPower,
                 maxPower: this.maxPower,
                 minCapacity: this.minCapacity,
-                maxCapacity: this.maxCapacity
+                maxCapacity: this.maxCapacity,
+                productFamily: this.productFam
             }).then(result => {
                 this.carList = result
+            }).catch(err => {
+                console.log(err);
             })
         }
     }

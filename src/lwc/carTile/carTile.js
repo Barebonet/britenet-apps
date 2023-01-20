@@ -27,7 +27,6 @@ export default class CarTile extends LightningElement {
     }
 
     connectedCallback() {
-        console.log('conCall');
         getMainPhoto({
             carId: this.car.Id
         }).then(result => {
@@ -39,8 +38,6 @@ export default class CarTile extends LightningElement {
             carId: this.car.Id
         }).then(avg => {
             this.avgRating = avg;
-            console.log(avg);
-            console.log(this.car.Id);
         }).catch(err => {
             console.log(err);
         });

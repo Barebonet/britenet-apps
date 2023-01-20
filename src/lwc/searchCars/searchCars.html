@@ -21,6 +21,10 @@
                                     options={capacity} onchange={handleMaxCapacityChange} 
                                     style="width: 50%; padding-left: 5%"></lightning-combobox>
             </div>
+            <div style="width: 100%;">
+                <lightning-combobox name="ProductFamily" label={label.ProductFamily} value={productFam}
+                                    options={getProductFamily} onchange={handleProductFamilyChange}></lightning-combobox>
+            </div>
             <div style="margin-top: 10px; display: flex; align-items: center">
                 <button class="slds-button slds-button_neutral searchButton" 
                                 onclick={searchCars} style="margin-left: 41%;">{label.Search}</button>

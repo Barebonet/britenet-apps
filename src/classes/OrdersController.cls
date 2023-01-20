@@ -41,7 +41,7 @@ public with sharing class OrdersController {
     public static List<Order> getUserOrders(String userId) {
         List<Order> userOrders = new List<Order>();
         try {
-            userOrders = [SELECT Id, OrderNumber, TotalPrice__c, EffectiveDate FROM Order WHERE OwnerId = :userId];
+            userOrders = [SELECT Id, OrderNumber, TotalPrice__c, EffectiveDate FROM Order WHERE OwnerId = :userId ORDER BY EffectiveDate DESC];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
