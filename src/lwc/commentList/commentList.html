@@ -1,8 +1,8 @@
 <template>
     <div>
-        <c-add-car-rating car-id={carId} oncommentadded={handleCommentAdded}></c-add-car-rating>
+        <c-add-car-rating car-id={carId} oncommentadded={getRatings}></c-add-car-rating>
     </div>
     <div for:each={commentsList} for:item="comment" key={comment.Id}>
-        <c-car-comment-tile comment={comment} key={comment.Id}></c-car-comment-tile>
+        <c-car-comment-tile comment={comment} oncommentdeleted={getRatings} oncommentedited={getRatings}></c-car-comment-tile>
     </div>
 </template>

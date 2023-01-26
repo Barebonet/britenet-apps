@@ -4,7 +4,7 @@
             <div style="width: 50%">
                 <div>
                     <lightning-icon icon-name="utility:comments"></lightning-icon>
-                    <span style="font-size: large;font-weight: bold;padding: 0 1em"> Add Comment</span>
+                    <span style="font-size: large;font-weight: bold;padding: 0 1em">Add Comment</span>
                 </div>
                 <lightning-textarea
                         placeholder={label.TypeOpinion}
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div>
-            <lightning-button label={label.Submit} variant="brand" onclick={handleAddComment} disabled={isGuestUser}></lightning-button>
+            <button class="button" onclick={handleAddComment} disabled={isGuestUser}>{label.Submit}</button>
         </div>
     </div>
 </template>

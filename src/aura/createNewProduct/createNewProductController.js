@@ -1,23 +1,19 @@
 ({
-    handleFilesChange: function(component, event, helper) {
-        var fileName = "No File Selected..";
-        var fileCount=component.find("fileId").get("v.files").length;
-        var files='';
-        if (fileCount > 0) {
-            for (var i = 0; i < fileCount; i++) 
-            {
-                fileName = component.find("fileId").get("v.files")[i]["name"];
-                files=files+','+fileName;
-            }
-        }
-        else
-        {
-            files=fileName;
-        }
-        component.set("v.fileName", files);
+    handleUploadFinished: function (cmp, event) {
+        let uploadedFiles = event.getParam("files");
+        uploadedFiles.forEach(file => console.log(file.name));
+        cmp.set('v.fileInput', false);
+        cmp.set('v.priceInput', true);
     },
 
-    insertNewProduct: function(component, event, helper) {
+    handleInsertProduct: function(component, event, helper) {
+        let product = component.get('v.prodInsert');
+        helper.insertNewProduct(component, product);
+    },
 
+    handleAddPrice: function(component, event, helper) {
+        let newPricebookEntry = component.get('v.newPbe');
+        newPricebookEntry.Product2Id = component.get('v.productId');
+        helper.insertStandardPrice(component, newPricebookEntry);
     }
-})
+});

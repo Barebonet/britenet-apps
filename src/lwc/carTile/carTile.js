@@ -2,6 +2,7 @@ import { api, LightningElement, track } from 'lwc';
 import getMainPhoto from '@salesforce/apex/CR_GalleryController.getPhotoForTile';
 import getAverageRating from '@salesforce/apex/CR_RatingController.getAverageRating';
 import getCarPrice from '@salesforce/apex/ProductController.getPriceForProduct';
+import getStandardCarPrice from '@salesforce/apex/ProductController.getStandardPrice';
 import Capacity from '@salesforce/label/c.Capacity';
 import Power from '@salesforce/label/c.Power';
 import hp from '@salesforce/label/c.Hp';
@@ -15,6 +16,8 @@ export default class CarTile extends LightningElement {
     @track carPhoto;
     @track avgRating = 0;
     @track carPrice = 0;
+    @track carStandardPrice;
+    @track displayDefaultPrice = false;
 
     label = {
         Capacity,
@@ -45,6 +48,16 @@ export default class CarTile extends LightningElement {
             carId: this.car.Id
         }).then(result => {
             this.carPrice = result
+            getStandardCarPrice({
+                carId: this.car.Id
+            }).then(result => {
+                this.carStandardPrice = result.UnitPrice;
+                if(this.carStandardPrice > this.carPrice) {
+                    this.displayDefaultPrice = true;
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         })
     }
 }

@@ -37,15 +37,26 @@ export default class AddCarRating extends LightningElement {
                 id: this.carId,
                 description: this.comment,
                 rating: this.stars
-            }).then(()=>{
-                const evt = new ShowToastEvent({
-                    title: 'Success',
-                    message: "Comment Created",
-                    variant: 'success',
-                });
-                this.dispatchEvent(evt);
-                const refreshAddEvent = new CustomEvent("commentadded",{});
-                this.dispatchEvent(refreshAddEvent);
+            }).then(result => {
+                if(result === 'SUCCESS') {
+                    const evt = new ShowToastEvent({
+                        title: 'Success',
+                        message: "Comment Created",
+                        variant: 'success',
+                    });
+                    this.dispatchEvent(evt);
+                    const refreshAddEvent = new CustomEvent("commentadded",{
+                        detail: {}
+                    });
+                    this.dispatchEvent(refreshAddEvent);
+                } else {
+                    const evt = new ShowToastEvent({
+                        title: 'Error',
+                        message: result,
+                        variant: 'error',
+                    });
+                    this.dispatchEvent(evt);
+                } 
                 this.comment = '';
                 this.stars = 0;
             })

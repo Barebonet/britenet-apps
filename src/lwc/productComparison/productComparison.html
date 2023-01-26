@@ -1,0 +1,24 @@
+<template>
+    <div if:true={productList} style="margin-top: 2%; border-radius: 25px; background-color: rgb(252, 238, 238); padding: 15px; box-shadow: 3px 3px 3px 3px grey;">
+        <h1 style="font-weight: bolder; font-size: xx-large;">Select cars to comparison</h1>
+        <div style=" margin-top: 1%;">
+            <lightning-datatable key-field="productId"
+                                data={productList}
+                                columns={columnsAllProds}
+                                max-row-selection="3"></lightning-datatable>
+            <div class="slds-align_absolute-center" style="margin-top: 1%;">
+                <button onclick={getSelectedRec} class="button">Add to comparison</button>
+            </div>
+        </div>
+    </div>
+    <div if:false={productList}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </div>
+    <div if:true={displayComparison} style="border-radius: 25px; background-color: rgb(252, 238, 238); padding: 15px; margin-top: 4%; box-shadow: 3px 3px 3px 3px grey;">
+        <h1 style="font-weight: bolder; font-size: xx-large; margin-bottom: 1%">Comparison</h1>
+        <lightning-datatable key-field="productId"
+                            data={compareProductList}
+                            columns={columnsComparison}
+                            hide-checkbox-column="true"></lightning-datatable>
+    </div>
+</template>

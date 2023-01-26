@@ -13,10 +13,3 @@
 .deleteButton:hover {
     background-color: rgb(134, 7, 7);
 }
-
-.bordered {
-    border-style: solid;
-    border-color: rgb(134, 7, 7);
-    border-width: 1px;
-    border-radius: 10%;
-}

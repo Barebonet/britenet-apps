@@ -4,15 +4,24 @@ import getCartItems from '@salesforce/apex/CartController.getUserCart';
 import makeNewOrder from '@salesforce/apex/OrdersController.makeNewOrder';
 import Euro from '@salesforce/label/c.Euro';
 import Id from '@salesforce/user/Id';
+import Checkout from '@salesforce/label/c.Checkout';
+import TotalPrice from '@salesforce/label/c.TotalPrice';
+import Cart from '@salesforce/label/c.Cart';
+import EmptyCart from '@salesforce/label/c.EmptyCart';
 
 export default class UserCart extends LightningElement {
     @track cartItems;
     userId = Id;
     @track fullPrice = 0;
     @track displayItems = false;
+    @track splitBill = false;
 
     label = {
-        Euro
+        Euro,
+        Checkout,
+        TotalPrice,
+        Cart,
+        EmptyCart
     }
 
     connectedCallback() {
@@ -30,7 +39,10 @@ export default class UserCart extends LightningElement {
                 this.displayItems = false;
             }
             this.cartItems.forEach(cartItem => {
-                this.fullPrice = cartItem.Totalprice__c
+                this.fullPrice += cartItem.Totalprice__c
+                if(this.fullPrice > 5000) {
+                    this.splitBill = true;
+                }
             })
         })
     }

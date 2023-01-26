@@ -26,7 +26,6 @@ export default class CommentList extends LightningElement {
             carId: this.carId
         }).then(result => {
             this.commentsList = result;
-            console.log(JSON.stringify(this.commentsList));
             getAvgRating({
                 carId: this.carId
             }).then(avg => {

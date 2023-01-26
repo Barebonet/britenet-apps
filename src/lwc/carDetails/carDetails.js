@@ -2,6 +2,7 @@ import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCarDetails from '@salesforce/apex/ProductController.getProductDetails';
 import getCarPrice from '@salesforce/apex/ProductController.getPriceForProduct';
+import getStandardCarPrice from '@salesforce/apex/ProductController.getStandardPrice';
 import Capacity from '@salesforce/label/c.Capacity';
 import Power from '@salesforce/label/c.Power';
 import hp from '@salesforce/label/c.Hp';
@@ -33,6 +34,8 @@ export default class CarDetails extends LightningElement {
     endDate;
     @track
     totalPrice = 0;
+    @track carStandardPrice;
+    @track displayDefaultPrice = false;
     userId = Id;
 
     label = {
@@ -62,6 +65,16 @@ export default class CarDetails extends LightningElement {
             carId: this.carId
         }).then(result => {
             this.carPrice = result;
+            getStandardCarPrice({
+                carId: this.carId
+            }).then(res => {
+                this.carStandardPrice = res.UnitPrice;
+                if(this.carStandardPrice > this.carPrice) {
+                    this.displayDefaultPrice = true;
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         })
     }
 
@@ -88,7 +101,7 @@ export default class CarDetails extends LightningElement {
                 message: "Added to cart.",
                 variant: 'success',
             });
-            this.dispatchEvent(evt);
+            this.dispatchEvent(evt); 
         }).catch(err => {
             console.log(err);
         })
@@ -110,7 +123,11 @@ export default class CarDetails extends LightningElement {
         if((this.endDate > this.startDate) && (this.startDate !== undefined && this.endDate !== undefined)) {
             this.totalPrice = this.endDate - this.startDate;
             this.totalPrice = parseInt(this.totalPrice / (1000*60*60*24));
-            this.totalPrice = this.totalPrice * this.carPrice;
+            if(this.totalPrice > 180) {
+                this.totalPrice = this.totalPrice * this.carPrice * 0.85;
+            } else {
+                this.totalPrice = this.totalPrice * this.carPrice;
+            }
         }
     }
 }
