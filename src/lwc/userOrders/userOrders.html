@@ -5,4 +5,7 @@
             <c-order-tile order={order}></c-order-tile>
         </div>
     </div>
+    <template if:false={viewOrders}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
 </template>

@@ -1,0 +1,12 @@
+<!--
+ - Created by bartosz.rozpara on 02.12.2022.
+ -->
+
+<!-- Recommended Movies -->
+<template>
+    <div style="margin-top: 20px">
+        <div class="slds-col slds-size_1-of-5 item" for:each={movieList} for:item="movie" key={movie.id}>
+            <c-movie-tile movie={movie}></c-movie-tile>
+        </div>
+    </div>
+</template>

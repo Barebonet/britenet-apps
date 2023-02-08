@@ -1,5 +1,5 @@
-public with sharing class CR_GalleryController {
-    public final static string URL = '/sfc/servlet.shepherd/document/download/';
+public without sharing class CR_GalleryController {
+    public final static string URL = '/sfsites/c/sfc/servlet.shepherd/document/download/';
     
     @AuraEnabled
     public static List<String> getPhotosForProduct(String carId, Integer offset) {

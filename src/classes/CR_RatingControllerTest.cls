@@ -6,7 +6,9 @@ public with sharing class CR_RatingControllerTest {
         prod.Name = 'SubUWU';
         insert prod;
 
+        Test.startTest();
         List<Rating__c> ratings = CR_RatingController.getCarRatings(prod.Id);
+        Test.stopTest();
 
         System.assert(true, ratings.isEmpty());
     }
@@ -22,7 +24,9 @@ public with sharing class CR_RatingControllerTest {
         rating.Description__c = 'Insane car.';
         insert rating;
 
+        Test.startTest();
         Double ratin = CR_RatingController.getAverageRating(prod.Id);
+        Test.stopTest();
 
         System.assert(true, ratin > 0);
     }
@@ -34,6 +38,8 @@ public with sharing class CR_RatingControllerTest {
         insert prod;
         String id = prod.Id;
 
+        Test.startTest();
         CR_RatingController.addRating(UserInfo.getUserId(), id, 'Cool car', 6);
+        Test.stopTest();
     }
 }

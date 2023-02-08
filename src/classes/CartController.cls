@@ -12,6 +12,10 @@ public with sharing class CartController {
                 newCart.UserId__c = userId;
                 insert newCart;  
             }
+            userCart = [SELECT 
+                                        Id 
+                                        FROM Cart__c 
+                                        WHERE UserId__c = :userId LIMIT 1];
             CartItem__c cartItem = new CartItem__c();
             cartItem.CartId__c = userCart[0].Id;
             cartItem.ProductId__c = productId;
@@ -40,6 +44,19 @@ public with sharing class CartController {
     public static void deleteFromCart(String cartItemId) {
         try {
             Database.delete(cartItemId);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static void editCartItem(String cartItemId, Date startDate, Date endDate, Double totalPrice) {
+        try {
+            CartItem__c cartItem = [SELECT Id, StartDate__c, EndDate__c, Totalprice__c FROM CartItem__c WHERE Id = :cartItemId LIMIT 1];
+            cartItem.StartDate__c = startDate;
+            cartItem.EndDate__c = endDate;
+            cartItem.Totalprice__c = totalPrice;
+            update cartItem;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
