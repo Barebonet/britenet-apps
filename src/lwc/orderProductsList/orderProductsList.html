@@ -3,23 +3,28 @@
         <table class="slds-table slds-table_cell-buffer slds-table_bordered">
             <thead>
                 <tr>
-                    <th>{label.CarName}</th>
-                    <th>{label.StartDate}</th>
-                    <th>{label.EndDate}</th>
-                    <th>{label.Price}</th>
-                    <th></th>
+                    <th style="width: 20%">{label.CarName}</th>
+                    <th style="width: 20%">{label.StartDate}</th>
+                    <th style="width: 20%">{label.EndDate}</th>
+                    <th style="width: 20%">{label.Price}</th>
+                    <th style="width: 20%"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr for:each={orderProducts} for:item="orderProduct" key={orderProduct.Id}>
-                    <td scope="col">{orderProduct.Product2.Name}</td>
-                    <td scope="col">{orderProduct.StartDate__c}</td>
-                    <td scope="col">{orderProduct.EndDate__c}</td>
-                    <td scope="col">{orderProduct.UnitPrice}</td>
-                    <td scope="col">
-                        <button class="reportButton" data-id={orderProduct.Product2Id} onclick={handleCaseCreation}>
-                            {label.ReportIssue}
-                        </button>
+                    <td scope="col" style="width: 20%">{orderProduct.Product2.Name}</td>
+                    <td scope="col" style="width: 20%">{orderProduct.StartDate__c}</td>
+                    <td scope="col" style="width: 20%">{orderProduct.EndDate__c}</td>
+                    <td scope="col" style="width: 20%">{orderProduct.UnitPrice}</td>
+                    <td scope="col" style="width: 20%">
+                        <div if:false={caseCreated}>
+                            <button class="reportButton" data-id={orderProduct.Product2Id} onclick={handleCaseCreation}>
+                                {label.ReportIssue}
+                            </button>
+                        </div>
+                        <div if:true={caseCreated}>
+                            {label.WIP}
+                        </div>
                     </td>
                 </tr>
             </tbody>

@@ -35,6 +35,30 @@
                         {car.ProductionYear__c}
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        {label.Gearbox}
+                    </td>
+                    <td>
+                        {car.Gearbox__c}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label.Doors}
+                    </td>
+                    <td>
+                        {car.Doors__c}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label.Seats}
+                    </td>
+                    <td>
+                        {car.Seats__c}
+                    </td>
+                </tr>
             </tbody>
         </table>
         <br>
@@ -42,14 +66,16 @@
         <div style="font-size: medium">{car.Description}</div>
         <div if:false={isGuest} style="margin-top: 4%;">
             <button class="slds-button slds-button_neutral rentButton" 
-                                style="margin-left: 43%;" onclick={toggleCarModal}>{label.RentNow}</button>
+                                style="margin-left: 25%;" onclick={handleAddToComparison}>{label.AddToComparison}</button>
+            <button class="slds-button slds-button_neutral rentButton" 
+                                style="margin-left: 4%;" onclick={toggleCarModal}>{label.RentNow}</button>
         </div>
     </div>
     <template if:true={cartModalOpen}>
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
                     aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                <lightning-modal-header label="Select the rent period"></lightning-modal-header>
+                <lightning-modal-header label={label.SelectPeriod}></lightning-modal-header>
                 <lightning-modal-body>
                     <div style="height: 420px;">
                         <div style="display: flex;">
@@ -66,7 +92,7 @@
                         </div>
                         <div style="display: flex; margin-top: 5%">
                             <div class=" slds-align_absolute-center" style="font-size: 17px; font-weight: bold;">
-                                Total price: {label.Euro} {totalPrice}
+                                {label.TotalPrice}: {label.Euro} {totalPrice}
                             </div>
                         </div>
                     </div>
