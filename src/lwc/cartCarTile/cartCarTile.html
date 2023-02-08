@@ -1,0 +1,10 @@
+<template>
+    <div style="display: flex;">
+        <div if:true={carPhoto} style="width: 50%; margin-top: 1%; height: 200px;">
+            <img src={carPhoto} style="padding: 30px; object-fit: scale-down;"/>
+        </div>
+        <div style="margin-left: 15px; width: 50%; margin-top: 14%;">
+            <div style="width: 80%; font-weight: bold; font-size: 18px">{car.Name}</div>
+        </div>
+    </div>
+</template>

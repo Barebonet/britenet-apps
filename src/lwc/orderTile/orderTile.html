@@ -1,0 +1,12 @@
+<template>
+    <div style=" margin-top: 3%;background-color: rgb(253, 242, 242); border-radius: 10px; box-shadow: 5px 5px 5px 5px grey;">
+        <div style="display: flex;">
+            <div style="width: 33%; margin-left: 3%; padding: 10px; font-size: medium; font-weight: bold; margin-top: 2px">{label.OrderNumber}: {order.OrderNumber}</div>
+            <div style="width: 33%; padding: 12px; font-size: medium; font-weight: bold; margin-top: 2px">{label.Price}: {label.Euro} {order.TotalPrice__c}</div>
+            <div style="width: 33%; padding: 12px; font-size: medium; font-weight: bold; margin-top: 2px">{label.DateOfOrder}: {order.EffectiveDate}</div>
+        </div>
+        <div class="hidden" style="padding-right: 4%; padding-left: 4%; padding-bottom: 2%; padding-top: 2%;">
+            <c-order-products-list order-id={order.Id}></c-order-products-list>
+        </div>
+    </div>
+</template>

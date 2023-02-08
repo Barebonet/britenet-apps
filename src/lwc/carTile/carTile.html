@@ -1,0 +1,26 @@
+<template>
+    <div class="carTile" style="display: flex; background-color: rgb(253, 242, 242); border-radius: 25px; margin-top: 20px; box-shadow: 3px 3px 3px 3px grey;">
+        <div if:true={carPhoto} style="width: 30%">
+            <img src={carPhoto} style="padding: 30px;"/>
+        </div>
+        <div if:false={carPhoto} style="width: 30%">
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </div>
+        <div style="margin-left: 15px; width: 70%">
+            <div style="display: flex; margin-top: 30px;">
+                <div style="width: 80%; font-weight: bold; font-size: x-large;">{car.Name}</div>
+                <div style="width: 50%; font-size: large; color: grey; padding-left: 10%; padding-top: 1%">
+                    <div if:true={displayDefaultPrice}>
+                        <s>{label.Euro} {carStandardPrice} {label.PerDay}</s>
+                    </div>
+                </div>
+                <div style="width: 50%; font-weight: bold; font-size: x-large;">{label.Euro} {carPrice} {label.PerDay}</div>
+            </div>
+            <div style="margin-top: 2%; font-size: medium">{label.Capacity} {car.Capacity__c} {label.cm}</div>
+            <div style="font-size: medium">{label.Power} {car.Power__c} {label.hp}</div>
+            <div style="font-size: medium">
+                {label.Rating} {avgRating} &#9733;
+            </div>
+        </div>
+    </div>
+</template>

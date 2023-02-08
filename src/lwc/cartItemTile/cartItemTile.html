@@ -1,0 +1,78 @@
+<template>
+    <div class="cartItemTile" style="display: flex; flex-wrap: wrap; background-color: rgb(253, 242, 242); border-radius: 25px; box-shadow: 3px 3px 3px 3px grey; margin-top: 2%; max-height: 300px">
+        <div style="width: 60%;">
+            <c-cart-car-tile car-id={cartItem.ProductId__c}></c-cart-car-tile>
+        </div>
+        <div style="width: 40%; padding-top: 7%; padding-left: 10%; font-size: medium">
+            <div>Start of rent: {cartItem.StartDate__c}</div>
+            <div>End of rent: {cartItem.EndDate__c}</div>
+            <div>Total price of rent: {label.Euro} {cartItem.Totalprice__c}</div>
+        </div>
+        <div style="width: 100%; display: flex">
+            <div class="slds-align_absolute-center" style="width: 50%; margin-bottom: 1%;">
+                <button class="button" onclick={toggleDatesModal}>Edit dates</button>
+            </div>
+            <div class="slds-align_absolute-center" style="width: 50%; margin-bottom: 1%;">
+                <button class="button" onclick={toggleDeletePrompt}>Delete</button>
+            </div> 
+        </div>
+    </div>
+    <template if:true={editDatesModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Select the rent period"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div style="height: 420px;">
+                        <div style="display: flex;">
+                            <div style="width:50%">
+                                <div class="slds-align_absolute-center">
+                                    <lightning-input value={cartItem.StartDate__c} type="date" name="StartDate" required="true" label={label.StartDate} onchange={handleStartDateChange}></lightning-input>
+                                </div>
+                            </div>
+                            <div style="width:50%">
+                                <div class="slds-align_absolute-center">
+                                    <lightning-input value={cartItem.EndDate__c} type="date" name="EndDate" required="true" label={label.EndDate} onchange={handleEndDateChange}></lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; margin-top: 5%">
+                            <div class=" slds-align_absolute-center" style="font-size: 17px; font-weight: bold;">
+                                Total price: {label.Euro} {totalPrice}
+                            </div>
+                        </div>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div style="display: flex">
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={toggleDatesModal}>{label.Close}</button>
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={editDates}>{label.Edit}</button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template if:true={deletePrompt}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Delete from cart"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div>
+                        <div class=" slds-align_absolute-center" style="font-size: 17px; font-weight: bold;">
+                            {label.DeleteProductFromCart}
+                        </div>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div style="display: flex">
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={toggleDeletePrompt}>{label.Close}</button>
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={deleteFromCart}>{label.Delete}</button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

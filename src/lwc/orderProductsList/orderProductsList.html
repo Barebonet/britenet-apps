@@ -1,0 +1,57 @@
+<template>
+    <div if:true={orderProducts}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr>
+                    <th>{label.CarName}</th>
+                    <th>{label.StartDate}</th>
+                    <th>{label.EndDate}</th>
+                    <th>{label.Price}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr for:each={orderProducts} for:item="orderProduct" key={orderProduct.Id}>
+                    <td scope="col">{orderProduct.Product2.Name}</td>
+                    <td scope="col">{orderProduct.StartDate__c}</td>
+                    <td scope="col">{orderProduct.EndDate__c}</td>
+                    <td scope="col">{orderProduct.UnitPrice}</td>
+                    <td scope="col">
+                        <button class="reportButton" data-id={orderProduct.Product2Id} onclick={handleCaseCreation}>
+                            {label.ReportIssue}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <template if:true={openCaseModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Create a case"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div style="height: 420px;">
+                        <lightning-input label={label.Subject} value={subject} onchange={handleSubjectChange}></lightning-input>
+                        <lightning-combobox
+                                name="Case Reason"
+                                label={label.CaseReason}
+                                value={reason}
+                                placeholder="Select Reason"
+                                options={caseReason}
+                                onchange={handleReasonChange} ></lightning-combobox>
+                        <lightning-textarea label={label.Description} value={description} onchange={handleDescriptionChange}></lightning-textarea>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div style="display: flex">
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center reportButton" onclick={toggleCaseModal}>{label.Close}</button>
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center reportButton" onclick={createCase}>{label.Submit}</button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

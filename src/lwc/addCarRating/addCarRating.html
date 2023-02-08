@@ -1,0 +1,29 @@
+<template>
+    <div style="margin-left: 2rem;position: relative">
+        <div style="display: flex">
+            <div style="width: 50%">
+                <div>
+                    <lightning-icon icon-name="utility:comments"></lightning-icon>
+                    <span style="font-size: large;font-weight: bold;padding: 0 1em">Add Comment</span>
+                </div>
+                <lightning-textarea
+                        placeholder={label.TypeOpinion}
+                        label={label.ShareOpinion}
+                        max-length="500"
+                        value={comment}
+                        onchange={handleBodyChange}
+                        disabled={isGuestUser}
+                        title={label.PleaseLogIn}
+                >
+                </lightning-textarea>
+            </div>
+            <div style="width: 50%;padding: 0 10rem">
+                <c-star-ratings rating={stars} label-text="Rating" size="small"
+                                onratingchange={handleStarChange}></c-star-ratings>
+            </div>
+        </div>
+        <div>
+            <button class="button" onclick={handleAddComment} disabled={isGuestUser}>{label.Submit}</button>
+        </div>
+    </div>
+</template>
