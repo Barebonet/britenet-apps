@@ -57,6 +57,16 @@ public with sharing class ProductController {
     }
 
     @AuraEnabled
+    public static Product2 getReviewLink(String carId) {
+        try {
+            Product2 carReview = [SELECT Review__c FROM Product2 WHERE Id = :carId];
+            return carReview;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
     public static List<Product2> getAllProducts() {
         List<Product2> products = new List<Product2>();
         try {

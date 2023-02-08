@@ -3,6 +3,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCarDetails from '@salesforce/apex/ProductController.getProductDetails';
 import getCarPrice from '@salesforce/apex/ProductController.getPriceForProduct';
 import getStandardCarPrice from '@salesforce/apex/ProductController.getStandardPrice';
+import addToComparison from '@salesforce/apex/CR_ComparisonController.addToCompare';
 import Capacity from '@salesforce/label/c.Capacity';
 import Power from '@salesforce/label/c.Power';
 import hp from '@salesforce/label/c.Hp';
@@ -18,6 +19,12 @@ import StartDate from '@salesforce/label/c.StartDate';
 import EndDate from '@salesforce/label/c.EndDate';
 import isGuest from '@salesforce/user/isGuest';
 import addToCart from '@salesforce/apex/CartController.addToCart';
+import Gearbox from '@salesforce/label/c.Gearbox';
+import Doors from '@salesforce/label/c.Doors';
+import Seats from '@salesforce/label/c.Seats';
+import TotalPrice from '@salesforce/label/c.TotalPrice';
+import SelectPeriod from '@salesforce/label/c.SelectPeriod';
+import AddToComparison from '@salesforce/label/c.AddToComparison';
 import Id from '@salesforce/user/Id';
 
 export default class CarDetails extends LightningElement {
@@ -51,7 +58,13 @@ export default class CarDetails extends LightningElement {
         Close,
         AddToCart,
         StartDate,
-        EndDate
+        EndDate,
+        Gearbox,
+        Doors,
+        Seats,
+        TotalPrice,
+        SelectPeriod,
+        AddToComparison
     }
 
     connectedCallback() {
@@ -105,7 +118,6 @@ export default class CarDetails extends LightningElement {
         }).catch(err => {
             console.log(err);
         })
-
         this.cartModalOpen = !this.cartModalOpen;
     }
 
@@ -129,5 +141,27 @@ export default class CarDetails extends LightningElement {
                 this.totalPrice = this.totalPrice * this.carPrice;
             }
         }
+    }
+
+    handleAddToComparison() {
+        addToComparison({
+            carId: this.carId
+        }).then(result => {
+            if(result === 'SUCCESS') {
+                const evt = new ShowToastEvent({
+                    title: 'Success',
+                    message: "Added to comparison.",
+                    variant: 'success',
+                });
+                this.dispatchEvent(evt); 
+            } else {
+                const event = new ShowToastEvent({
+                    title: 'Error',
+                    message: result,
+                    variant: 'error',
+                });
+                this.dispatchEvent(event);
+            }
+        })
     }
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="carTile" style="display: flex; background-color: rgb(253, 242, 242); border-radius: 25px; margin-top: 20px; box-shadow: 3px 3px 3px 3px grey;">
+    <div class="carTile" style="display: flex; background-color: rgb(253, 242, 242); border-radius: 25px; margin-top: 20px; box-shadow: 3px 3px 3px 3px grey; min-height: 200px">
         <div if:true={carPhoto} style="width: 30%">
-            <img src={carPhoto} style="padding: 30px;"/>
+            <img src={carPhoto} style="padding: 30px; object-fit: cover;"/>
         </div>
         <div if:false={carPhoto} style="width: 30%">
             <lightning-spinner alternative-text="Loading"></lightning-spinner>
