@@ -1,0 +1,77 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="ProductController">
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="prodInsert" type="Product2" default="{ 'sobjectType': 'Product2' }"/>
+    <aura:attribute name="productInput" type="Boolean" default="true"/>
+    <aura:attribute name="fileInput" type="Boolean" default="false"/>
+    <aura:attribute name="priceInput" type="Boolean" default="false"/>
+    <aura:attribute name="fileType" type="List" default="['.png', '.jpg', '.jpeg']"/>
+    <aura:attribute name="productId" type="String"/>
+    <aura:attribute name="newPbe" type="PricebookEntry" default="{ 'sobjectType': 'PricebookEntry' }"/>
+
+    <aura:if isTrue="{!v.productInput}">
+        <lightning:card title="Product information">
+            <div style="width: 80%; margin-left: 10%">
+                <lightning:input type="text" label="Product name" name="Product Name" value="{!v.prodInsert.Name}"
+                                 required="true"/>
+                <lightning:input type="Number" label="Capacity" name="Capacity" value="{!v.prodInsert.Capacity__c}"
+                                 required="true"/>
+                <lightning:input type="Number" label="Power" name="Power" value="{!v.prodInsert.Power__c}"
+                                 required="true"/>
+                <lightning:input type="Number" label="Torque" name="Torque" value="{!v.prodInsert.Torque__c}"
+                                 required="true"/>
+                <lightning:input type="Number" label="Production year" name="ProductionYear"
+                                 value="{!v.prodInsert.ProductionYear__c}" required="true"/>
+                <lightning:select label="Car family" name="Car Family" value="{!v.prodInsert.Family}">
+                    <option value="Cars">Cars</option>
+                    <option value="Trucks">Trucks</option>
+                    <option value="Vans">Vans</option>
+                </lightning:select>
+                <lightning:select label="Gearbox" name="Gearbox" value="{!v.prodInsert.Gearbox__c}">
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual 5-speed">Manual 5-speed</option>
+                    <option value="Manual 6-speed">Manual 6-speed</option>
+                </lightning:select>
+                <lightning:input type="text" label="Doors" name="Doors" value="{!v.prodInsert.Doors__c}"
+                                 required="true"/>
+                <lightning:input type="text" label="Seats" name="Seats" value="{!v.prodInsert.Seats__c}"
+                                 required="true"/>
+                <lightning:textarea label="Product description" name="ProductDescription"
+                                    value="{!v.prodInsert.Description}" required="true"/>
+                <div class="slds-align_absolute-center">
+                    <lightning:button label="Next" name="Next" onclick="{!c.handleInsertProduct}"/>
+                </div>
+            </div>
+        </lightning:card>
+    </aura:if>
+
+
+    <div style="display: flex; margin-top: 10px">
+        <aura:if isTrue="{!v.fileInput}">
+            <div style="width: 100%">
+                <lightning:card title="Product photos">
+                    <div class="slds-align_absolute-center">
+                        <lightning:fileUpload label="Attach product photo"
+                                              name="fileUploader"
+                                              multiple="true"
+                                              accept="{!v.fileType}"
+                                              recordId="{!v.productId}"
+                                              onuploadfinished="{!c.handleUploadFinished}"/>
+                    </div>
+                </lightning:card>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.priceInput}">
+            <div style="margin-left: 5px; width: 100%">
+                <lightning:card title="Set standard price">
+                    <div style="width: 80%; margin-left: 10%">
+                        <lightning:input type="text" label="Price (€)" name="StandardPrice" value="{!v.newPbe.UnitPrice}"
+                                         required="true" accept="image/png, image/jpeg"/>
+                    </div>
+                    <div class="slds-align_absolute-center">
+                        <lightning:button label="Insert product" onclick="{!c.handleAddPrice}"/>
+                    </div>
+                </lightning:card>
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

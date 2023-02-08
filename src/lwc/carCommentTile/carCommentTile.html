@@ -1,0 +1,85 @@
+<template>
+    <div style="margin-top: 2rem;">
+        <div class="commentWrapper">
+            <div style="display: flex; width: 100%; margin-bottom: 20px">
+                <div style="display: flex; flex-wrap: wrap; width: 95%">
+                    <div style="padding-left: 30px; width: 20%">
+                        <p style="color: gray; padding-top: 15px; font-size: 16px">
+                            {comment.CreatedBy.Name}
+                        </p>
+                    </div>
+                    <div style="width:40%">
+                        <c-star-ratings rating={comment.Rating__c} read-only-star="true"
+                                        show-half-stars="true"
+                                        size="small"></c-star-ratings>
+                    </div>
+                    <div if:true={sameUser} style="width: 40%;">
+                        <button class="button" style="margin-left: 10%;" onclick={toggleEditRating}>{label.Edit}</button>
+                        <button class="button" style="margin-left: 3%;" onclick={toggleDeletePrompt}>{label.Delete}</button>
+                    </div>
+                    <div style="width: 100%">
+                        <p style="font-size: 15px; padding-left: 30px; margin-bottom: 15px"><br>
+                            {comment.Description__c}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template if:true={deletePrompt}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Delete rating"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div>
+                        <div class=" slds-align_absolute-center" style="font-size: 17px; font-weight: bold;">
+                            {label.DeleteAffirmation}
+                        </div>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div style="display: flex">
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={toggleDeletePrompt}>{label.Close}</button>
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={handleDeleteRating}>{label.Delete}</button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={editRating}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" 
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Edit rating"></lightning-modal-header>
+                <lightning-modal-body>
+                    <div style="width: 700px;">
+                        <div style="width: 100%;padding: 0 10rem">
+                            <c-star-ratings rating={commentStars} label-text="Rating" size="small"
+                                            onratingchange={handleStarChange}></c-star-ratings>
+                        </div>
+                        <div style="width: 87%;">
+                            <lightning-textarea
+                                    placeholder={label.TypeOpinion}
+                                    label={label.ShareOpinion}
+                                    max-length="500"
+                                    value={commentDescription}
+                                    onchange={handleBodyChange}
+                                    disabled={isGuestUser}>
+                            </lightning-textarea>
+                        </div>
+                    </div>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <div style="display: flex">
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={toggleEditRating}>{label.Close}</button>
+                        <button class="slds-button slds-button_neutral slds-align_absolute-center button" onclick={handleEditComment}>{label.Edit}</button>
+                    </div>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,15 @@
+.rentButton {
+    font-size: medium;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: rgb(197, 14, 14);
+    color: white;
+    border-color: rgba(240, 240, 240, 0);
+    box-shadow: 0 0 1px 0px rgba(240, 240, 240, 0) inset, 0 0 1px 0px rgba(240, 240, 240, 0);
+    border-radius: 14px;
+    transition: background-color .2s;
+}
+
+.rentButton:hover {
+    background-color: rgb(134, 7, 7);
+}

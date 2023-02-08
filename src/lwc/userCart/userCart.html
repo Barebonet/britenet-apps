@@ -1,0 +1,33 @@
+<template>
+    <h1 style="font-weight: bolder; font-size: xx-large; margin-top: 2%">{label.Cart}</h1>
+    <div if:true={displayItems}>
+        <div style="display: flex;">
+            <div style="width: 80%;">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div for:each={cartItems} for:item="cartItem" key={cartItem.Id} style="width: 95%;">
+                        <c-cart-item-tile cart-item={cartItem} oncartitemedited={refreshCart} ondeleted={refreshCart}></c-cart-item-tile>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 30%;">
+                <div style="display: flex; margin-top: 20%; font-weight: bold; font-size: 20px">
+                    <div style="width: 70%; padding-left: 10%;">{label.TotalPrice}:</div>
+                    <div style="width: 30%; padding-right: 10%;">{label.Euro} {fullPrice}</div>
+                </div>
+                <div>
+                    <center>
+                        <button class="deleteButton" style="margin-top: 5%; font-size: 18px" onclick={orderProducts}>{label.Checkout}</button>
+                    </center>
+                </div>
+                <div>
+                    <center>
+                        <button class="deleteButton" style="margin-top: 5%; font-size: 18px">Split into installments</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div if:false={displayItems} style="font-size: large; font-weight: bold; margin-top: 2%">
+        <center>{label.EmptyCart}</center>
+    </div>
+</template>

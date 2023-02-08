@@ -1,0 +1,11 @@
+<template>
+    <h1 style="font-weight: bolder; font-size: xx-large; margin-top: 4%">{label.MyOrders}</h1>
+    <div if:true={viewOrders}>
+        <div for:each={userOrders} for:item="order" key={order.Id}>
+            <c-order-tile order={order}></c-order-tile>
+        </div>
+    </div>
+    <template if:false={viewOrders}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+</template>

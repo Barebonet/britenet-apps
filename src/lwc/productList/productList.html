@@ -1,0 +1,8 @@
+<template>
+    <div>
+        <h1 style="font-weight: bolder; font-size: xx-large">{label.Cars}</h1>
+        <div id={car.Id} for:each={carList} for:item="car" key={car.Id} onclick={handleOpenCarDetails} style="cursor: pointer;">
+            <c-car-tile car={car}></c-car-tile>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,83 @@
+<template>
+    <div if:true={displayItems} style=" background-color: rgb(255, 248, 248); border-radius: 15px; margin-top: 20px; box-shadow: 3px 3px 3px 3px grey;">
+        <h1 style="font-weight: bolder; font-size: xx-large; padding: 1%">{label.Comparison}</h1>
+        <div if:true={productList} style="padding-bottom: 2%">
+            <div>
+                <div style="margin-top: 1%; display: flex; height: 20px; font-weight: bold; font-size: 16px">
+                    <div class="slds-align_absolute-center" style="width: 17%;">
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 10%;">
+                        {label.CarName}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {label.Capacity}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {label.Power}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {label.Doors}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 10%;">
+                        {label.Gearbox}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {label.ProdYear}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {label.Seats}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        Car fam
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 7%;">
+                        {label.PricePerDay}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 11%;">
+                    </div>
+                </div>
+            </div>
+            <template for:each={productList} for:item="car">
+                <div key={car.Id} style="margin-top: 2%; display: flex; height: 100px; justify-content: spaces-around; font-size: 14px;">
+                    <div class="slds-align_absolute-center" data-id={car.carId} onclick={navigateToDetails} style="width: 17%; cursor: pointer">
+                        <img src={car.photoLink} style="height: 100px; object-fit: cover; width: 80%;"/>
+                    </div>
+                    <div class="slds-align_absolute-center" data-id={car.carId} onclick={navigateToDetails} style="width: 10%; cursor: pointer">
+                        {car.carName}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {car.capacity} {label.cm}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {car.power} {label.hp}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {car.doors}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width:10%;">
+                        {car.gearbox}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {car.prodYear}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {car.seats}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 5%;">
+                        {car.family}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 7%;">
+                        {label.Euro} {car.price}
+                    </div>
+                    <div class="slds-align_absolute-center" style="width: 11%;">
+                        <button class="slds-align_absolute-center slds-button slds-button_neutral button"
+                                data-id={car.Id} onclick={handleDeleteFromComparison}>{label.Remove}</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+    <div if:false={displayItems} style="font-size: large; font-weight: bold; margin-top: 2%">
+        <center>{label.ComparisonEmpty}</center>
+    </div>
+</template>
